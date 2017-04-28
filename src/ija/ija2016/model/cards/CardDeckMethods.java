@@ -1,4 +1,4 @@
-package ija.ija2016.homework2.model.cards;
+package ija.ija2016.model.cards;
 import java.util.*;
 
 /**

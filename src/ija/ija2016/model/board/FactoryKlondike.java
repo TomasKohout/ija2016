@@ -1,6 +1,6 @@
-package ija.ija2016.homework2.model.board;
+package ija.ija2016.model.board;
 
-import ija.ija2016.homework2.model.cards.*;
+import ija.ija2016.model.cards.*;
 
 /**
  * Created by xblaze31 on 24.3.2017.

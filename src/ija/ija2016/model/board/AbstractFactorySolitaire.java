@@ -1,8 +1,8 @@
-package ija.ija2016.homework2.model.board;
+package ija.ija2016.model.board;
 
-import ija.ija2016.homework2.model.cards.Card;
-import ija.ija2016.homework2.model.cards.CardDeck;
-import ija.ija2016.homework2.model.cards.CardStack;
+import ija.ija2016.model.cards.Card;
+import ija.ija2016.model.cards.CardDeck;
+import ija.ija2016.model.cards.CardStack;
 
 /**
  * Created by xblaze31 on 24.3.2017.
