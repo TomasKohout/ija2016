@@ -1,0 +1,36 @@
+<project name="IJA_3" default="main" basedir=".">
+        <property name="src" location="src" />
+        <property name="build" location="build" />
+        <property name="test" location="src" />
+        <property name="report" location="build/test-report" />
+
+        <path id="junit.class.path">
+                <pathelement location="lib/hamcrest-core-1.3.jar"/>
+                <pathelement location="lib/junit-4.12.jar" />
+                <pathelement location="${build}" />
+        </path>
+
+        <target name="clean">
+                <delete dir="${build}" />
+                <mkdir dir="${build}" /> 
+        </target>
+
+        <target name="compile" depends="clean">
+                <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
+                        <classpath refid="junit.class.path" />
+                </javac>
+        </target>
+
+        <target name="run" depends="compile">
+                <mkdir dir="${report}" />
+                <junit printsummary="on" fork="true" haltonfailure="yes">
+                        <classpath refid="junit.class.path" />
+                        <formatter type="xml" />
+                        <batchtest todir="${report}">
+                                <fileset dir="${src}">
+                                        <include name="**/Test*.java" />
+                                </fileset>
+                        </batchtest>
+                </junit>
+        </target>
+</project>
