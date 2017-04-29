@@ -1,5 +1,8 @@
 package ija.ija2016.model.cards;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created by xblaze31 on 24.3.2017.
  */
@@ -8,6 +11,10 @@ public class CardMethods implements Card{
     private Card.Color color;
     private int value;
     private boolean faceUp;
+    private JLabel label = new JLabel();
+    private ImageIcon iconTurned;
+    private ImageIcon iconUnturned;
+
 
     public enum Color{
         CLUBS 		("C"),
@@ -31,6 +38,8 @@ public class CardMethods implements Card{
         this.value = value;
         this.color = c;
         this.faceUp = false;
+        iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");
+        iconUnturned = createImageIcon("../../../../images/cardback.png");
     }
 
     public int value(){
@@ -109,6 +118,30 @@ public class CardMethods implements Card{
             default: strValue = "" + this.value;
         }
         return strValue+"("+this.color.toString()+")";
+    }
+
+    @Override
+    public JLabel getJLabel()
+    {
+        if (this.faceUp) {
+            this.label.setIcon(iconTurned);
+            return label;
+        }
+        else
+        {
+            this.label.setIcon(iconUnturned);
+            return label;
+        }
+    }
+
+    protected ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
     }
 
 }

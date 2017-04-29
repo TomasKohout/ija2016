@@ -1,4 +1,7 @@
 package ija.ija2016.model.cards;
+
+import javax.swing.*;
+
 /**
  * Created by xblaze31 on 24.3.2017.
  */
@@ -20,4 +23,7 @@ public interface Card {
     boolean similarColorTo(Card c);
 
     int compareValue(Card c);
+
+    JLabel getJLabel();
+
 }

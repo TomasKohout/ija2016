@@ -57,7 +57,7 @@ public class CardDeckMethods implements CardDeck{
     }
 
     public Card get(int index){
-        return this.get(index);
+        return this.s.get(index);
     }
 
     public boolean isEmpty(){
