@@ -24,6 +24,11 @@ public class CardStackMethods implements CardStack{
         return flag;
     }
 
+    public void forcePut(Card card)
+    {
+        this.s.push(card);
+    }
+
     public CardStack pop(Card card){
         CardStackMethods tmp_stack = new CardStackMethods(52);
         CardStackMethods card_stack = new CardStackMethods(52);

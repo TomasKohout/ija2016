@@ -36,6 +36,6 @@ public class FactoryKlondike extends AbstractFactorySolitaire {
 
     @Override
     public CardStack createWorkingPack() {
-        return new CardStackMethods(52);
+        return new CardStackMethods(25);
     }
 }

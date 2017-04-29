@@ -134,7 +134,7 @@ public class CardMethods implements Card{
         }
     }
 
-    protected ImageIcon createImageIcon(String path) {
+    private ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
