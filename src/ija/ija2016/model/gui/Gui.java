@@ -16,7 +16,7 @@ public class Gui {
     private static final int CARD_HEIGH = 110;
 
 
-    private JFrame mainFrame = new JFrame("Solitaire");
+    private JFrame mainFrame = new JFrame("Rébus Solitaire");
     private JPanel panelOfAll = new JPanel(null);
 
     private FactoryKlondike factory = new FactoryKlondike();
@@ -76,77 +76,76 @@ public class Gui {
 
         panelOfAll.setBackground( new Color(12, 121, 5));
         panelOfAll.setSize(FRAME_WIDTH, FRAME_HEIGH);
-
         workingDeck1.forcePut(turnCardUp(mainDeck.pop()));
         workingLabel1[0] = workingDeck1.get(0).getJLabel();
         workingLabel1[0].setBounds(10, 300, CARD_WIDTH, CARD_HEIGH);
 
         panelOfAll.add(workingLabel1[0]);
-        for (int k = 0; k < 2; k++) {
-            if (k != 0)
+        for (int k = 1, i = 0; k >= 0; k--, i++) {
+            if (k != 1)
                 workingDeck2.forcePut(mainDeck.pop());
             else
                 workingDeck2.forcePut(turnCardUp(mainDeck.pop()));
 
-            workingLabel2[k] = workingDeck2.get(k).getJLabel();
+            workingLabel2[k] = workingDeck2.get(i).getJLabel();
             workingLabel2[k].setBounds(110, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel2[k]);
         }
 
-        for (int k = 0; k < 3; k++) {
-            if (k != 0)
+        for (int k = 2, i = 0; k >= 0; k--, i++) {
+            if (k != 2)
                 workingDeck3.forcePut(mainDeck.pop());
             else
                 workingDeck3.forcePut(turnCardUp(mainDeck.pop()));
 
 
-            workingLabel3[k] = workingDeck3.get(k).getJLabel();
+            workingLabel3[k] = workingDeck3.get(i).getJLabel();
             workingLabel3[k].setBounds(210, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel3[k]);
         }
 
-        for (int k = 0; k < 4; k++) {
-            if (k != 0)
+        for (int k = 3, i = 0; k >= 0; k--, i++) {
+            if (k != 3)
                 workingDeck4.forcePut(mainDeck.pop());
             else
                 workingDeck4.forcePut(turnCardUp(mainDeck.pop()));
 
-            workingLabel4[k] = workingDeck4.get(k).getJLabel();
+            workingLabel4[k] = workingDeck4.get(i).getJLabel();
             workingLabel4[k].setBounds(310, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel4[k]);
         }
 
-        for (int k = 0; k < 5; k++) {
-            if (k != 0)
+        for (int k = 4, i = 0; k >= 0; k-- , i++) {
+            if (k != 4)
                 workingDeck5.forcePut(mainDeck.pop());
             else
                 workingDeck5.forcePut(turnCardUp(mainDeck.pop()));
-            workingLabel5[k] = workingDeck5.get(k).getJLabel();
+            workingLabel5[k] = workingDeck5.get(i).getJLabel();
             workingLabel5[k].setBounds(410, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel5[k]);
         }
 
-        for (int k = 0; k < 6; k++) {
-            if (k != 0)
+        for (int k = 5, i = 0; k >= 0; k--, i++) {
+            if (k != 5)
                 workingDeck6.forcePut(mainDeck.pop());
             else
                 workingDeck6.forcePut(turnCardUp(mainDeck.pop()));
-            workingLabel6[k] = workingDeck6.get(k).getJLabel();
+            workingLabel6[k] = workingDeck6.get(i).getJLabel();
             workingLabel6[k].setBounds(510, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel6[k]);
         }
 
-        for (int k = 0; k < 7; k++) {
-            if (k != 0)
+        for (int k = 6, i = 0; k >= 0; k--, i++) {
+            if (k != 6)
                 workingDeck7.forcePut(mainDeck.pop());
             else
                 workingDeck7.forcePut(turnCardUp(mainDeck.pop()));
-            workingLabel7[k] = workingDeck7.get(k).getJLabel();
+            workingLabel7[k] = workingDeck7.get(i).getJLabel();
             workingLabel7[k].setBounds(610, 300 - (k * 10), CARD_WIDTH, CARD_HEIGH);
 
             panelOfAll.add(workingLabel7[k]);
