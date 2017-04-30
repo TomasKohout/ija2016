@@ -6,6 +6,6 @@ public interface CardStack extends CardDeck{
 	boolean put(CardStack stack);
 
 	CardStack pop(Card card);
-	void forcePut(Card card);
+	void forcePut(Card card, String src);
 	int size();
 }

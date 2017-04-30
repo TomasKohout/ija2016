@@ -24,8 +24,8 @@ public class CardStackMethods implements CardStack{
         return flag;
     }
 
-    public void forcePut(Card card)
-    {
+    public void forcePut(Card card, String src) {
+        card.getJLabel().setText(card.toString() + "-" + src);
         this.s.push(card);
     }
 
@@ -113,8 +113,5 @@ public class CardStackMethods implements CardStack{
         return this.s.size();
     }
 
-//    public void suffleDeck(CardDeck deck){
-//
-//    }
 
 }

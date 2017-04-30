@@ -39,7 +39,7 @@ public class CardMethods implements Card{
         this.color = c;
         this.faceUp = false;
         label.setText(this.toString());
-        //label.setFont(new java.awt.Font("Lucida Grande",1,0));
+        label.setFont(new Font("Lucida Grande",1,0));
         iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");
         iconUnturned = createImageIcon("../../../../images/cardback.png");
     }
