@@ -112,4 +112,9 @@ public class CardStackMethods implements CardStack{
     public int size(){
         return this.s.size();
     }
+
+//    public void suffleDeck(CardDeck deck){
+//
+//    }
+
 }

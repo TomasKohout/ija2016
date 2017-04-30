@@ -1,6 +1,7 @@
 package ija.ija2016.model.cards;
 import java.util.*;
 
+
 /**
  * Created by xblaze31 on 24.3.2017.
  */
@@ -23,6 +24,8 @@ public class CardDeckMethods implements CardDeck{
                 deck.put(new_card);
             }
         }
+        Collections.shuffle(deck.s);
+
         return deck;
     }
 
@@ -55,6 +58,8 @@ public class CardDeckMethods implements CardDeck{
             return null;
         }
     }
+
+
 
     public Card get(int index){
         return this.s.get(index);

@@ -38,6 +38,8 @@ public class CardMethods implements Card{
         this.value = value;
         this.color = c;
         this.faceUp = false;
+        label.setText(this.toString());
+        //label.setFont(new java.awt.Font("Lucida Grande",1,0));
         iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");
         iconUnturned = createImageIcon("../../../../images/cardback.png");
     }
