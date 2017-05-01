@@ -60,6 +60,13 @@ public class CardMethods implements Card{
         return false;
     }
 
+    public Card turn(){
+        this.faceUp = !this.faceUp;
+        return this;
+    }
+
+
+
     public Card.Color color(){
         return this.color;
     }
