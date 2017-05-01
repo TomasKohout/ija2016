@@ -11,7 +11,7 @@ public class CardMethods implements Card{
     private Card.Color color;
     private int value;
     private boolean faceUp;
-    private JLabel label = new JLabel();
+    private JLabel label;
     private ImageIcon iconTurned;
     private ImageIcon iconUnturned;
 
@@ -38,6 +38,7 @@ public class CardMethods implements Card{
         this.value = value;
         this.color = c;
         this.faceUp = false;
+        label  = new JLabel();
         label.setText(this.toString());
         label.setFont(new Font("Lucida Grande",1,0));
         iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");

@@ -59,8 +59,6 @@ public class CardDeckMethods implements CardDeck{
         }
     }
 
-
-
     public Card get(int index){
         return this.s.get(index);
     }

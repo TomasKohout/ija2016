@@ -6,9 +6,19 @@ package ija.ija2016.model.cards;
 public class CardTargetDeck extends CardDeckMethods {
     private Card.Color targetColor;
 
+    @Override
+    public Card pop(){
+        if(this.size() > 0) {
+            if (this.size() == 1)
+                this.targetColor = null;
+            return this.s.pop();
+        }
+        else
+            return null;
+    }
+
     public CardTargetDeck(Card.Color color,int size){
         super(size);
-        targetColor = color;
     }
 
     public boolean put(Card card){
@@ -21,6 +31,16 @@ public class CardTargetDeck extends CardDeckMethods {
             }
         }
         return false;
+    }
+
+    public void setColor(Card.Color color)
+    {
+        this.targetColor = color;
+    }
+
+    public boolean getColor()
+    {
+        return this.targetColor == null;
     }
 
 
