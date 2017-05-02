@@ -50,8 +50,6 @@ public class CardStackMethods implements CardStack{
                 }
                 card_stack.size = card_stack.size();
 
-                if (!this.isEmpty())
-                    this.get(this.size()-1).turnFaceUp();
                 return card_stack;
             }
         }

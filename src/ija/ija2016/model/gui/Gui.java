@@ -9,6 +9,7 @@ import ija.ija2016.model.cards.CardTargetDeck;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 
 
 public class Gui {
@@ -29,6 +30,10 @@ public class Gui {
 
     private JFrame mainFrame;
     private JPanel panelOfAll;
+    private JPanel game1;
+    private JPanel game2;
+    private JPanel game3;
+    private JPanel game4;
 
     private FactoryKlondike factory;
 
@@ -51,6 +56,12 @@ public class Gui {
     private JLabel[] mainLabel;
     private JLabel[] swapLabel;
 
+    private JButton newGame;
+    private JButton resetGame;
+    private JButton undo;
+    private JButton save;
+    private JButton load;
+
     private CardStack swapDeck;
     private CardDeck mainDeck;
 
@@ -69,10 +80,21 @@ public class Gui {
     private Configuration actionListener;
     private ImageIcon whiteBorder;
 
+    private StackToStack stackToStack;
+    private StackToTargetDeck stackToTargetDeck;
+    private TargetDeckToStack targetDeckToStack;
+    private MainToSwap mainToSwap;
+
     public Gui()
     {
+        mainToSwap = new MainToSwap();
+        targetDeckToStack = new TargetDeckToStack();
+        stackToTargetDeck = new StackToTargetDeck();
+        stackToStack = new StackToStack();
         mainFrame = new JFrame("Rébus Solitaire");
+        
         panelOfAll = new JPanel(null);
+
         factory = new FactoryKlondike();
         workingDeck1 = factory.createWorkingPack();
         workingDeck2 = factory.createWorkingPack();
@@ -113,6 +135,17 @@ public class Gui {
         targetLabel2 = new JLabel[14];
         targetLabel3 = new JLabel[14];
         targetLabel4 = new JLabel[14];
+        newGame = new JButton("New Game");
+        newGame.setFont(new Font("Lucida Grande", 1, 10));
+        newGame.setBounds(200,10,80,30);
+        newGame.setMargin(new Insets(0,0,0,0));
+        newGame.addActionListener(new NewGameButton());
+        undo = new JButton("Undo");
+        undo.setFont(new Font("Lucida Grande", 1, 10));
+        undo.setBounds(10,120,80,30);
+        undo.setMargin(new Insets(0,0,0,0));
+        undo.addActionListener(new UndoGame());
+        createFrame();
         setUp();
     }
 
@@ -129,18 +162,18 @@ public class Gui {
 
     private void setUp()
     {
-        createFrame();
+
 
         panelOfAll.setBackground( new Color(12, 121, 5));
         panelOfAll.setSize(FRAME_WIDTH, FRAME_HEIGH);
 
         //SET WORKING PACKS
         workingDeck1.forcePut(turnCardUp(mainDeck.pop()),"w1");
-        workingLabel1[0] = workingDeck1.get(0).getJLabel();
-        workingLabel1[0].setBounds(10, 300, CARD_WIDTH, CARD_HEIGH);
+        workingLabel1[1] = workingDeck1.get(0).getJLabel();
+        workingLabel1[1].setBounds(10, 300, CARD_WIDTH, CARD_HEIGH);
         wd1 = workingDeck1.size() -1;
 
-        panelOfAll.add(workingLabel1[0]);
+        panelOfAll.add(workingLabel1[1]);
 
         for (int k = 1; k >= 0; k--)
             workingDeck2.forcePut(mainDeck.pop(), "w2");
@@ -225,7 +258,8 @@ public class Gui {
     protected void repaint()
     {
         panelOfAll.removeAll();
-
+        panelOfAll.add(newGame);
+        panelOfAll.add(undo);
             paintWorkingDeck(workingLabel1, workingDeck1, 10, 300);
             wd1 = workingDeck1.size();
 
@@ -339,8 +373,6 @@ public class Gui {
             }
             else
                 clearMove();
-
-            return;
         }
 
         @Override
@@ -358,50 +390,27 @@ public class Gui {
 
                 //funkce mainDeck
                 if (this.source.compareTo("m") == 0 && this.destination.compareTo("m") == 0){
-                    if(mainDeck.isEmpty()) {
-                        while(!swapDeck.isEmpty()) {
-                            mainDeck.put(swapDeck.pop().turn());
-                        }
-                    }
-                    else
-                    //   System.out.println("Swap pred: " + swapDeck.size());
-                    {
-                        System.out.println(mainDeck.size());
-                        swapDeck.forcePut(turnCardUp(mainDeck.pop()), "s");
-                    }
+                    mainToSwap.setString(this.source, this.destination);
+                    mainToSwap.execute(mainDeck, swapDeck);
                     //  System.out.println("Swap po: " + swapDeck.size());
                 }
                 else
                 {
 //                    System.out.println("mouseReleased: Source: " + this.source + " Card: "+ sourceCard.toString() +" Dest: " + this.destination + " Card: " + destCard.toString());
 
-                    /*
-                    if (dDeck != null && sDeck != null)
-                    {
-                        moveCards()
-                    }
-                    else if (sStack != null && dStack != null)
-                    {
-
-                    }
-                    else if (sDeck != null && dStack != null)
-                    {
-
-                    }
-                    else if (sStack != null && dDeck != null)
-                    {
-
-                    }
-                    */
-                    if (destination.compareTo(source) != 0)
+                    if (destination.compareTo(source) != 0 &&
+                            source.compareTo("m") != 0)
                         moveCards(sourceCard, destCard);
                 }
-
+                if (targetDeck1.size() == 13 &&
+                        targetDeck2.size() == 13 &&
+                        targetDeck3.size() == 13 &&
+                        targetDeck4.size() == 13)
+                JOptionPane.showMessageDialog(panelOfAll, "Vyhráli jste!");
                 repaint();
                 clearMove();
 
             }
-            return;
         }
 
         @Override
@@ -431,53 +440,18 @@ public class Gui {
             else
                 dDeck = (CardTargetDeck) this.destDeck;
 
-            try {
-                if (source.isTurnedFaceUp() && dest.isTurnedFaceUp() &&
-                        source.value() < dest.value() &&
-                        !source.similarColorTo(dest) ||
-                        !(destination.compareTo("s") == 0)) {
-                    if (sDeck != null && dStack != null) {
-                        Card c = sDeck.pop();
-                        c.getJLabel().setText(c.toString() + "-" + destination);
-                        dStack.put(c);
-                    } else if (sStack != null && dStack != null) {
-                        tmp = sStack.pop(source);
-                        if (dStack.put(tmp)) {
-                            int i = 0;
-                            while (i < tmp.size()) {
-                                tmp.get(i).getJLabel().setText(tmp.get(i).toString() + "-" + this.destination);
-                                i++;
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            while(!tmp.isEmpty())
-                                sStack.forcePut(tmp.pop(), "s");
-                        }
-                    } else if (sStack != null && dDeck != null) {
-                        Card c = sStack.pop();
-                        sStack.get().turnFaceUp();
-                        c.getJLabel().setText(c.toString() + "-" + destination);
-                        if (dDeck.getColor())
-                            dDeck.setColor(c.color());
-                        dDeck.put(c);
-                    }
-
-                }
-                return false;
-
+            if (sDeck != null && dStack != null) {
+                targetDeckToStack.setString(this.source, this.destination);
+                targetDeckToStack.execute(sDeck, dStack, source, dest);
+            } else if (sStack != null && dStack != null) {
+                stackToStack.setString(this.source, this.destination);
+                stackToStack.execute(sStack, dStack, source, dest);
+            } else if (sStack != null && dDeck != null) {
+                stackToTargetDeck.setString(this.source,this.destination);
+                stackToTargetDeck.execute(sStack, dDeck,source,dest);
             }
-            catch(Exception e)
-            {
-                if (sStack != null && dDeck != null) {
-                    Card c = sStack.pop();
-                    c.getJLabel().setText(c.toString() + "-" + destination);
-                    if (dDeck.getColor())
-                        dDeck.setColor(c.color());
-                    dDeck.put(c);
-                }
-            }
+
+
             return false;
         }
 
@@ -591,4 +565,89 @@ public class Gui {
         }
 
     }
+
+    protected class NewGameButton implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            prepareForNewGame();
+            setUp();
+        }
+    }
+
+    protected class UndoGame implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+
+        }
+    }
+
+    protected class SaveGame implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    protected class LoadGame implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private void prepareForNewGame()
+    {
+        targetDeck1 = null;
+        targetDeck2 = null;
+        targetDeck3 = null;
+        targetDeck4 = null;
+
+        targetDeck1 = factory.createTargetPack(Card.Color.DIAMONDS);
+        targetDeck2 = factory.createTargetPack(Card.Color.HEARTS);
+        targetDeck3 = factory.createTargetPack(Card.Color.CLUBS);
+        targetDeck4 = factory.createTargetPack(Card.Color.SPADES);
+
+        workingDeck1 = null;
+        workingDeck2 = null;
+        workingDeck3 = null;
+        workingDeck4 = null;
+        workingDeck5 = null;
+        workingDeck6 = null;
+        workingDeck7 = null;
+        workingLabel1 = new JLabel[25];
+        workingLabel2 = new JLabel[25];
+        workingLabel3 = new JLabel[25];
+        workingLabel4 = new JLabel[25];
+        workingLabel5 = new JLabel[25];
+        workingLabel6 = new JLabel[25];
+        workingLabel7 = new JLabel[25];
+        mainLabel = new JLabel[53];
+        swapLabel = new JLabel[25];
+        workingDeck1 = factory.createWorkingPack();
+        workingDeck2 = factory.createWorkingPack();
+        workingDeck3 = factory.createWorkingPack();
+        workingDeck4 = factory.createWorkingPack();
+        workingDeck5 = factory.createWorkingPack();
+        workingDeck6 = factory.createWorkingPack();
+        workingDeck7 = factory.createWorkingPack();
+
+        mainDeck = null;
+        swapDeck = null;
+
+        swapDeck = factory.createWorkingPack();
+        mainDeck = factory.createCardDeck();
+        actionListener = null;
+        actionListener = new Configuration();
+        for (int i = 0; i < mainDeck.size(); i++)
+        {
+            mainDeck.get(i).getJLabel().addMouseListener(this.actionListener);
+            mainDeck.get(i).getJLabel().setFont(this.font);
+        }
+    }
+
 }
