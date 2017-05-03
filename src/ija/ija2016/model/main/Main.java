@@ -2,13 +2,12 @@ package ija.ija2016.model.main;
 import javax.swing.*;
 
 import ija.ija2016.model.gui.Gui;
+import ija.ija2016.model.gui.Panels;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            Gui window = new Gui();
-            window.setMainFrame();
-
+            Panels window = new Panels();
         }
         catch (Exception e)
         {

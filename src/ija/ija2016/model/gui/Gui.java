@@ -28,12 +28,7 @@ public class Gui {
     private int wd6;
     private int wd7;
 
-    private JFrame mainFrame;
     private JPanel panelOfAll;
-    private JPanel game1;
-    private JPanel game2;
-    private JPanel game3;
-    private JPanel game4;
 
     private FactoryKlondike factory;
 
@@ -56,7 +51,6 @@ public class Gui {
     private JLabel[] mainLabel;
     private JLabel[] swapLabel;
 
-    private JButton newGame;
     private JButton resetGame;
     private JButton undo;
     private JButton save;
@@ -85,15 +79,14 @@ public class Gui {
     private TargetDeckToStack targetDeckToStack;
     private MainToSwap mainToSwap;
 
-    public Gui()
+    public Gui(JPanel panel)
     {
         mainToSwap = new MainToSwap();
         targetDeckToStack = new TargetDeckToStack();
         stackToTargetDeck = new StackToTargetDeck();
         stackToStack = new StackToStack();
-        mainFrame = new JFrame("Rébus Solitaire");
-        
-        panelOfAll = new JPanel(null);
+
+        this.panelOfAll = panel;
 
         factory = new FactoryKlondike();
         workingDeck1 = factory.createWorkingPack();
@@ -135,37 +128,18 @@ public class Gui {
         targetLabel2 = new JLabel[14];
         targetLabel3 = new JLabel[14];
         targetLabel4 = new JLabel[14];
-        newGame = new JButton("New Game");
-        newGame.setFont(new Font("Lucida Grande", 1, 10));
-        newGame.setBounds(200,10,80,30);
-        newGame.setMargin(new Insets(0,0,0,0));
-        newGame.addActionListener(new NewGameButton());
+
         undo = new JButton("Undo");
         undo.setFont(new Font("Lucida Grande", 1, 10));
         undo.setBounds(10,120,80,30);
         undo.setMargin(new Insets(0,0,0,0));
         undo.addActionListener(new UndoGame());
-        createFrame();
         setUp();
     }
 
-    public void setMainFrame ()
-    {
-        mainFrame.setVisible(true);
-    }
-
-    private void createFrame()
-    {
-        mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGH);
-        mainFrame.setBounds(50, 50 ,FRAME_WIDTH, FRAME_HEIGH);
-    }
 
     private void setUp()
     {
-
-
-        panelOfAll.setBackground( new Color(12, 121, 5));
-        panelOfAll.setSize(FRAME_WIDTH, FRAME_HEIGH);
 
         //SET WORKING PACKS
         workingDeck1.forcePut(turnCardUp(mainDeck.pop()),"w1");
@@ -228,9 +202,7 @@ public class Gui {
         setZeroIndexLabel(mainLabel, 10, 10, "wb-m");
         repaint();
 
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
 
     private Card turnCardUp (Card card){
         card.turnFaceUp();
@@ -258,7 +230,6 @@ public class Gui {
     protected void repaint()
     {
         panelOfAll.removeAll();
-        panelOfAll.add(newGame);
         panelOfAll.add(undo);
             paintWorkingDeck(workingLabel1, workingDeck1, 10, 300);
             wd1 = workingDeck1.size();
@@ -294,11 +265,18 @@ public class Gui {
         addDeckToPanel(targetLabel4, targetDeck4, 610, 10, "t4");
 
         //ADD BORDERS END
+
         panelOfAll.revalidate();
         panelOfAll.repaint();
-        mainFrame.getContentPane().revalidate();
-        mainFrame.getContentPane().repaint();
-        mainFrame.add(panelOfAll);
+
+        Panels.panelOfAll.add(this.panelOfAll);
+        Panels.panelOfAll.revalidate();
+        Panels.panelOfAll.repaint();
+
+        Panels.mainFrame.add(Panels.panelOfAll);
+        Panels.mainFrame.getContentPane().revalidate();
+        Panels.mainFrame.getContentPane().repaint();
+
     }
 
     protected void paintWorkingDeck(JLabel[] labels, CardStack stack, int x, int y)
@@ -566,14 +544,7 @@ public class Gui {
 
     }
 
-    protected class NewGameButton implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            prepareForNewGame();
-            setUp();
-        }
-    }
 
     protected class UndoGame implements ActionListener{
 
