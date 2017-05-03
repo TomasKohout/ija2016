@@ -74,20 +74,11 @@ public class Gui implements Serializable{
     private transient Configuration actionListener;
     private transient ImageIcon whiteBorder;
 
-    private transient StackToStack stackToStack;
-    private transient StackToTargetDeck stackToTargetDeck;
-    private transient TargetDeckToStack targetDeckToStack;
-    private transient MainToSwap mainToSwap;
-
-    Invoker invoker;
+    private transient Invoker invoker;
 
     public Gui(JPanel panel, JButton exitGame)
     {
         invoker = new Invoker();
-        //mainToSwap = new MainToSwap();
-        //targetDeckToStack = new TargetDeckToStack();
-        //stackToTargetDeck = new StackToTargetDeck();
-        //stackToStack = new StackToStack();
 
         this.panelOfAll = panel;
 
@@ -440,7 +431,7 @@ public class Gui implements Serializable{
                 dDeck = (CardTargetDeck) this.destDeck;
 
             if (sDeck != null && dStack != null) {
-                Transfer action = new Transfer(this.source,  this.destination, sDeck, sStack, source, dest);
+                Transfer action = new Transfer(this.source,  this.destination, sDeck, dStack, source, dest);
                 TargetDeckToStack move = new TargetDeckToStack(action);
                 invoker.takeOrder(move);
 
