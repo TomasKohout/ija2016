@@ -19,6 +19,6 @@ public class TargetDeckToStack implements Command{
     }
 
     public void undo(){
-
+        move.UndoTargetDeckToStack();
     }
 }

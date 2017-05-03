@@ -149,8 +149,11 @@ public class Transfer {
         dest.put(source.pop());
         if (source.isEmpty())
             return;
-        source.get().turnFaceUp();
-        this.turnBackLastCard = true;
+
+        if(!source.get(source.size()-1).isTurnedFaceUp()) {
+            source.get().turnFaceUp();
+            this.turnBackLastCard = true;
+        }
         sourceCard.getJLabel().setText(sourceCard.toString() + "-" + this.destination);
     }
 
@@ -192,7 +195,7 @@ public class Transfer {
         CardStack source = (CardStack) this.dst;
         CardTargetDeck dest = (CardTargetDeck) this.src;
 
-        dest.forcePut(source.pop(),this.source);
+        dest.forcePut(source.pop(),this.destination);
     }
 
     public void setString(String source,String destination)
