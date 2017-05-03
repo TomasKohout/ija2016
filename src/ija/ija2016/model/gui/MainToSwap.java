@@ -7,36 +7,18 @@ import ija.ija2016.model.cards.CardStack;
 /**
  * Created by tom on 2.5.17.
  */
-public class MainToSwap {
-    private String source;
-    private String destination;
+public class MainToSwap implements Command{
+    private  Transfer move;
 
-    public MainToSwap(){
-
+    public MainToSwap(Transfer move){
+        this.move = move;
     }
 
-    public void execute(CardDeck source, CardStack dest)
-    {
-        if (source.isEmpty() && dest.isEmpty())
-            return;
-
-        if (source.isEmpty()) {
-            while (!dest.isEmpty()) {
-                source.put(dest.pop().turn());
-            }
-        }
-        else
-        {
-            Card tmp = source.pop();
-            tmp.turnFaceUp();
-            dest.forcePut(tmp, this.destination);
-        }
-    }
-    public void setString(String source, String destination)
-    {
-        this.destination = destination;
-        this.source = source;
+    public void execute() {
+        move.MainToSwap();
     }
 
-
+    public void undo(){
+        move.UndoMainToSwap();
+    }
 }

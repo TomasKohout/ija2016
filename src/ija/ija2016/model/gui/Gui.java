@@ -16,9 +16,6 @@ import java.io.*;
 
 public class Gui implements Serializable{
 
-    private static final int FRAME_WIDTH = 720;
-    private static final int FRAME_HEIGH = 500;
-
     private static final int CARD_WIDTH = 80;
     private static final int CARD_HEIGH = 110;
 
@@ -82,12 +79,15 @@ public class Gui implements Serializable{
     private transient TargetDeckToStack targetDeckToStack;
     private transient MainToSwap mainToSwap;
 
+    Invoker invoker;
+
     public Gui(JPanel panel, JButton exitGame)
     {
-        mainToSwap = new MainToSwap();
-        targetDeckToStack = new TargetDeckToStack();
-        stackToTargetDeck = new StackToTargetDeck();
-        stackToStack = new StackToStack();
+        invoker = new Invoker();
+        //mainToSwap = new MainToSwap();
+        //targetDeckToStack = new TargetDeckToStack();
+        //stackToTargetDeck = new StackToTargetDeck();
+        //stackToStack = new StackToStack();
 
         this.panelOfAll = panel;
 
@@ -150,6 +150,7 @@ public class Gui implements Serializable{
         load.setMargin(new Insets(0,0,0,0));
         load.addActionListener(new LoadGame());
         this.exitGame = exitGame;
+
 
         setUp();
     }
@@ -296,7 +297,6 @@ public class Gui implements Serializable{
         Panels.mainFrame.add(Panels.panelOfAll);
         Panels.mainFrame.getContentPane().revalidate();
         Panels.mainFrame.getContentPane().repaint();
-
     }
 
     protected void paintWorkingDeck(JLabel[] labels, CardStack stack, int x, int y)
@@ -388,8 +388,9 @@ public class Gui implements Serializable{
 
                 //funkce mainDeck
                 if (this.source.compareTo("m") == 0 && this.destination.compareTo("m") == 0){
-                    mainToSwap.setString(this.source, this.destination);
-                    mainToSwap.execute(mainDeck, swapDeck);
+                    Transfer action = new Transfer(this.source, this.destination, mainDeck, swapDeck, null, null);
+                    MainToSwap move = new MainToSwap(action);
+                    invoker.takeOrder(move);
                     //  System.out.println("Swap po: " + swapDeck.size());
                 }
                 else
@@ -426,7 +427,7 @@ public class Gui implements Serializable{
             CardStack dStack = null;
             CardTargetDeck sDeck = null;
             CardTargetDeck dDeck = null;
-            CardStack tmp;
+            //CardStack tmp;
 
             if (this.sourceDeck instanceof CardStack)
                 sStack = (CardStack) this.sourceDeck;
@@ -439,14 +440,26 @@ public class Gui implements Serializable{
                 dDeck = (CardTargetDeck) this.destDeck;
 
             if (sDeck != null && dStack != null) {
-                targetDeckToStack.setString(this.source, this.destination);
-                targetDeckToStack.execute(sDeck, dStack, source, dest);
+                Transfer action = new Transfer(this.source,  this.destination, sDeck, sStack, source, dest);
+                TargetDeckToStack move = new TargetDeckToStack(action);
+                invoker.takeOrder(move);
+
+                //targetDeckToStack.setString(this.source, this.destination);
+                //targetDeckToStack.execute(sDeck, dStack, source, dest);
             } else if (sStack != null && dStack != null) {
-                stackToStack.setString(this.source, this.destination);
-                stackToStack.execute(sStack, dStack, source, dest);
+                Transfer action = new Transfer(this.source,  this.destination, sStack, dStack, source, dest);
+                StackToStack move = new StackToStack(action);
+                invoker.takeOrder(move);
+
+                //stackToStack.setString(this.source, this.destination);
+                //stackToStack.execute(sStack, dStack, source, dest);
             } else if (sStack != null && dDeck != null) {
-                stackToTargetDeck.setString(this.source,this.destination);
-                stackToTargetDeck.execute(sStack, dDeck,source,dest);
+                Transfer action = new Transfer(this.source,  this.destination, sStack, dDeck, source, dest);
+                StackToTargetDeck move = new StackToTargetDeck(action);
+                invoker.takeOrder(move);
+
+                //stackToTargetDeck.setString(this.source,this.destination);
+                //stackToTargetDeck.execute(sStack, dDeck,source,dest);
             }
 
 
@@ -569,7 +582,8 @@ public class Gui implements Serializable{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-
+            invoker.undo();
+            repaint();
         }
     }
 

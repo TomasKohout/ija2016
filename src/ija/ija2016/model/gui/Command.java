@@ -9,10 +9,5 @@ import ija.ija2016.model.cards.CardTargetDeck;
  */
 public interface Command {
     public void execute();
-
-    public void execute(CardTargetDeck source, CardStack dest, Card sourceCard, Card destCard);
-
-    public void execute(CardStack source, CardStack dest, Card sourceCard, Card destCard);
-
-    public void execute(CardStack source, CardTargetDeck dest, Card sourceCard, Card destCard);
+    public void undo();
 }

@@ -43,6 +43,13 @@ public class CardDeckMethods implements CardDeck, Serializable{
             return false;
     }
 
+    public void forcePut(Card card, String src){
+        if(this.size > this.size()){
+            this.s.push(card);
+            card.getJLabel().setText(card.toString() + "-" + src);
+        }
+    }
+
     public Card pop(){
         if(this.size() > 0)
             return this.s.pop();
