@@ -7,6 +7,8 @@ public interface CardDeck{
 
     boolean put(Card card);
 
+    void forcePut(Card card, String src);
+
     Card pop();
 
     Card get();

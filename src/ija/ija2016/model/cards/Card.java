@@ -25,5 +25,6 @@ public interface Card {
     int compareValue(Card c);
 
     JLabel getJLabel();
+    Card turn();
 
 }

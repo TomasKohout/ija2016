@@ -1,11 +1,12 @@
 package ija.ija2016.model.cards;
+import java.io.Serializable;
 import java.util.*;
 
 
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardStackMethods implements CardStack{
+public class CardStackMethods implements CardStack, Serializable{
     //Atributy
     protected int size;
     protected Stack<Card> s = new Stack<Card>();
@@ -49,6 +50,7 @@ public class CardStackMethods implements CardStack{
                     card_stack.my_put(tmp_card);
                 }
                 card_stack.size = card_stack.size();
+
                 return card_stack;
             }
         }
@@ -82,24 +84,32 @@ public class CardStackMethods implements CardStack{
             return false;
     }
 
-    public boolean put(Card card){
-        if(this.size > this.size()){
-            int Sorting = 13 - this.size();
-            //System.out.println(this.size() + "aaa"+ Sorting + card.value());
+   public boolean put (Card card)
+   {
+       if (this.s.size() + 1 > this.size)
+           return false;
 
-            if (this.get() == null && card.value() == 13) {
-                this.s.push(card);
-                return true;
-            } else if (Sorting == (card.value())) {
-                if(!this.get().similarColorTo(card)) {
-                    this.s.push(card);
-                    return true;
-                }
-            }
+       CardMethods c = (CardMethods) this.get();
 
-        }
-        return false;
-    }
+       if (c == null)
+       {
+           if (card.value() == 13)
+           {
+               this.s.push((CardMethods) card);
+               return true;
+           }
+           return false;
+       }
+
+       if (card.similarColorTo(c))
+           return false;
+
+       if (c.compareValue(card) != 1)
+           return false;
+
+       this.s.push((CardMethods) card);
+       return true;
+   }
 
     public Card pop(){
         return this.s.pop();

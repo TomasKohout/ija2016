@@ -1,11 +1,12 @@
 package ija.ija2016.model.cards;
+import java.io.Serializable;
 import java.util.*;
 
 
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardDeckMethods implements CardDeck{
+public class CardDeckMethods implements CardDeck, Serializable{
     //Atributy
     protected int size;
     protected Stack<Card> s = new Stack<Card>();
@@ -42,6 +43,13 @@ public class CardDeckMethods implements CardDeck{
             return false;
     }
 
+    public void forcePut(Card card, String src){
+        if(this.size > this.size()){
+            this.s.push(card);
+            card.getJLabel().setText(card.toString() + "-" + src);
+        }
+    }
+
     public Card pop(){
         if(this.size() > 0)
             return this.s.pop();
@@ -58,8 +66,6 @@ public class CardDeckMethods implements CardDeck{
             return null;
         }
     }
-
-
 
     public Card get(int index){
         return this.s.get(index);

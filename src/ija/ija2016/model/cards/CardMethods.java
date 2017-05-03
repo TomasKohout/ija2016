@@ -2,16 +2,17 @@ package ija.ija2016.model.cards;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardMethods implements Card{
+public class CardMethods implements Card, Serializable{
     //Atributy
     private Card.Color color;
     private int value;
     private boolean faceUp;
-    private JLabel label = new JLabel();
+    private JLabel label;
     private ImageIcon iconTurned;
     private ImageIcon iconUnturned;
 
@@ -38,6 +39,7 @@ public class CardMethods implements Card{
         this.value = value;
         this.color = c;
         this.faceUp = false;
+        label  = new JLabel();
         label.setText(this.toString());
         label.setFont(new Font("Lucida Grande",1,0));
         iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");
@@ -59,6 +61,13 @@ public class CardMethods implements Card{
         }
         return false;
     }
+
+    public Card turn(){
+        this.faceUp = !this.faceUp;
+        return this;
+    }
+
+
 
     public Card.Color color(){
         return this.color;
