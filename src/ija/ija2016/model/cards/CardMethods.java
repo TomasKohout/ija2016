@@ -2,11 +2,12 @@ package ija.ija2016.model.cards;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardMethods implements Card{
+public class CardMethods implements Card, Serializable{
     //Atributy
     private Card.Color color;
     private int value;

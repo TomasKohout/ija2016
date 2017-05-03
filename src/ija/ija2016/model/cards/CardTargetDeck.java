@@ -1,9 +1,11 @@
 package ija.ija2016.model.cards;
 
+import java.io.Serializable;
+
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardTargetDeck extends CardDeckMethods {
+public class CardTargetDeck extends CardDeckMethods implements Serializable {
     private Card.Color targetColor;
 
     @Override

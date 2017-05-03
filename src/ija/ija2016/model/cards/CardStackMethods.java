@@ -1,11 +1,12 @@
 package ija.ija2016.model.cards;
+import java.io.Serializable;
 import java.util.*;
 
 
 /**
  * Created by xblaze31 on 24.3.2017.
  */
-public class CardStackMethods implements CardStack{
+public class CardStackMethods implements CardStack, Serializable{
     //Atributy
     protected int size;
     protected Stack<Card> s = new Stack<Card>();

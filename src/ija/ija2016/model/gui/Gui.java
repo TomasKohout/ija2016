@@ -1,4 +1,5 @@
 package ija.ija2016.model.gui;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ija.ija2016.model.board.FactoryKlondike;
 import ija.ija2016.model.cards.Card;
 import ija.ija2016.model.cards.CardDeck;
@@ -10,9 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
+import java.io.*;
 
 
-public class Gui {
+public class Gui implements Serializable{
 
     private static final int FRAME_WIDTH = 720;
     private static final int FRAME_HEIGH = 500;
@@ -28,9 +30,9 @@ public class Gui {
     private int wd6;
     private int wd7;
 
-    private JPanel panelOfAll;
+    private transient JPanel panelOfAll;
 
-    private FactoryKlondike factory;
+    private transient FactoryKlondike factory;
 
     private CardStack workingDeck1;
     private CardStack workingDeck2;
@@ -40,21 +42,22 @@ public class Gui {
     private CardStack workingDeck6;
     private CardStack workingDeck7;
 
-    private JLabel[] workingLabel1;
-    private JLabel[] workingLabel2;
-    private JLabel[] workingLabel3;
-    private JLabel[] workingLabel4;
-    private JLabel[] workingLabel5;
-    private JLabel[] workingLabel6;
-    private JLabel[] workingLabel7;
+    private transient JLabel[] workingLabel1;
+    private transient JLabel[] workingLabel2;
+    private transient JLabel[] workingLabel3;
+    private transient JLabel[] workingLabel4;
+    private transient JLabel[] workingLabel5;
+    private transient JLabel[] workingLabel6;
+    private transient JLabel[] workingLabel7;
 
-    private JLabel[] mainLabel;
-    private JLabel[] swapLabel;
+    private transient JLabel[] mainLabel;
+    private transient JLabel[] swapLabel;
 
-    private JButton resetGame;
-    private JButton undo;
-    private JButton save;
-    private JButton load;
+    private transient JButton resetGame;
+    private transient JButton undo;
+    private transient JButton save;
+    private transient JButton load;
+    private transient JButton exitGame;
 
     private CardStack swapDeck;
     private CardDeck mainDeck;
@@ -64,22 +67,22 @@ public class Gui {
     private CardDeck targetDeck3;
     private CardDeck targetDeck4;
 
-    private JLabel[] targetLabel1;
-    private JLabel[] targetLabel2;
-    private JLabel[] targetLabel3;
-    private JLabel[] targetLabel4;
+    private transient JLabel[] targetLabel1;
+    private transient JLabel[] targetLabel2;
+    private transient JLabel[] targetLabel3;
+    private transient JLabel[] targetLabel4;
 
-    private Font font;
+    private transient Font font;
 
-    private Configuration actionListener;
-    private ImageIcon whiteBorder;
+    private transient Configuration actionListener;
+    private transient ImageIcon whiteBorder;
 
-    private StackToStack stackToStack;
-    private StackToTargetDeck stackToTargetDeck;
-    private TargetDeckToStack targetDeckToStack;
-    private MainToSwap mainToSwap;
+    private transient StackToStack stackToStack;
+    private transient StackToTargetDeck stackToTargetDeck;
+    private transient TargetDeckToStack targetDeckToStack;
+    private transient MainToSwap mainToSwap;
 
-    public Gui(JPanel panel)
+    public Gui(JPanel panel, JButton exitGame)
     {
         mainToSwap = new MainToSwap();
         targetDeckToStack = new TargetDeckToStack();
@@ -131,9 +134,23 @@ public class Gui {
 
         undo = new JButton("Undo");
         undo.setFont(new Font("Lucida Grande", 1, 10));
-        undo.setBounds(10,120,80,30);
+        undo.setBounds(10,0,50,20);
         undo.setMargin(new Insets(0,0,0,0));
         undo.addActionListener(new UndoGame());
+
+        save = new JButton("Save");
+        save.setFont(new Font("Lucida Grande", 1, 10));
+        save.setBounds(60,0,50,20);
+        save.setMargin(new Insets(0,0,0,0));
+        save.addActionListener(new SaveGame());
+
+        load = new JButton("Load");
+        load.setFont(new Font("Lucida Grande", 1, 10));
+        load.setBounds(110,0,50,20);
+        load.setMargin(new Insets(0,0,0,0));
+        load.addActionListener(new LoadGame());
+        this.exitGame = exitGame;
+
         setUp();
     }
 
@@ -185,21 +202,21 @@ public class Gui {
         workingDeck7.forcePut(workingDeck7.pop().turn(), "w7");
         wd7 = workingDeck7.size() - 1;
 
-        setZeroIndexLabel(workingLabel1, 10, 300, "wb-w1");
-        setZeroIndexLabel(workingLabel2, 110, 300, "wb-w2");
-        setZeroIndexLabel(workingLabel3, 210, 300, "wb-w3");
-        setZeroIndexLabel(workingLabel4, 310, 300, "wb-w4");
-        setZeroIndexLabel(workingLabel5, 410, 300, "wb-w5");
-        setZeroIndexLabel(workingLabel6, 510, 300, "wb-w6");
-        setZeroIndexLabel(workingLabel7, 610, 300, "wb-w7");
+        setZeroIndexLabel(workingLabel1, 10, 310, "wb-w1");
+        setZeroIndexLabel(workingLabel2, 110, 310, "wb-w2");
+        setZeroIndexLabel(workingLabel3, 210, 310, "wb-w3");
+        setZeroIndexLabel(workingLabel4, 310, 310, "wb-w4");
+        setZeroIndexLabel(workingLabel5, 410, 310, "wb-w5");
+        setZeroIndexLabel(workingLabel6, 510, 310, "wb-w6");
+        setZeroIndexLabel(workingLabel7, 610, 310, "wb-w7");
 
-        setZeroIndexLabel(targetLabel1, 310, 10, "wb-t1");
-        setZeroIndexLabel(targetLabel2, 410, 10, "wb-t2");
-        setZeroIndexLabel(targetLabel3, 510, 10, "wb-t3");
-        setZeroIndexLabel(targetLabel4, 610, 10, "wb-t4");
+        setZeroIndexLabel(targetLabel1, 310, 20, "wb-t1");
+        setZeroIndexLabel(targetLabel2, 410, 20, "wb-t2");
+        setZeroIndexLabel(targetLabel3, 510, 20, "wb-t3");
+        setZeroIndexLabel(targetLabel4, 610, 20, "wb-t4");
 
-        setZeroIndexLabel(swapLabel, 110, 10, "wb-s");
-        setZeroIndexLabel(mainLabel, 10, 10, "wb-m");
+        setZeroIndexLabel(swapLabel, 110, 20, "wb-s");
+        setZeroIndexLabel(mainLabel, 10, 20, "wb-m");
         repaint();
 
     }
@@ -231,38 +248,41 @@ public class Gui {
     {
         panelOfAll.removeAll();
         panelOfAll.add(undo);
-            paintWorkingDeck(workingLabel1, workingDeck1, 10, 300);
+        panelOfAll.add(save);
+        panelOfAll.add(exitGame);
+        panelOfAll.add(load);
+            paintWorkingDeck(workingLabel1, workingDeck1, 10, 310);
             wd1 = workingDeck1.size();
 
-            paintWorkingDeck(workingLabel2, workingDeck2, 110, 300);
+            paintWorkingDeck(workingLabel2, workingDeck2, 110, 310);
             wd2 = workingDeck2.size();
 
-            paintWorkingDeck(workingLabel3, workingDeck3, 210, 300);
+            paintWorkingDeck(workingLabel3, workingDeck3, 210, 310);
             wd3 = workingDeck3.size();
 
-            paintWorkingDeck(workingLabel4, workingDeck4, 310, 300);
+            paintWorkingDeck(workingLabel4, workingDeck4, 310, 310);
             wd4 = workingDeck4.size();
 
-            paintWorkingDeck(workingLabel5, workingDeck5, 410, 300);
+            paintWorkingDeck(workingLabel5, workingDeck5, 410, 310);
             wd5 = workingDeck5.size();
 
-            paintWorkingDeck(workingLabel6, workingDeck6, 510, 300);
+            paintWorkingDeck(workingLabel6, workingDeck6, 510, 310);
             wd6 = workingDeck6.size();
 
-            paintWorkingDeck(workingLabel7, workingDeck7, 610, 300);
+            paintWorkingDeck(workingLabel7, workingDeck7, 610, 310);
             wd7 = workingDeck7.size();
 
 
         //SET WORKING PACKS END
 
         //ADD BORDERS
-        addDeckToPanel(mainLabel, mainDeck, 10, 10, "m");
-        addStackToPanel(swapLabel, swapDeck, 110, 10, "s");
+        addDeckToPanel(mainLabel, mainDeck, 10, 20, "m");
+        addStackToPanel(swapLabel, swapDeck, 110, 20, "s");
 
-        addDeckToPanel(targetLabel1, targetDeck1, 310, 10, "t1");
-        addDeckToPanel(targetLabel2, targetDeck2, 410, 10, "t2");
-        addDeckToPanel(targetLabel3, targetDeck3, 510, 10, "t3");
-        addDeckToPanel(targetLabel4, targetDeck4, 610, 10, "t4");
+        addDeckToPanel(targetLabel1, targetDeck1, 310,20, "t1");
+        addDeckToPanel(targetLabel2, targetDeck2, 410, 20, "t2");
+        addDeckToPanel(targetLabel3, targetDeck3, 510, 20, "t3");
+        addDeckToPanel(targetLabel4, targetDeck4, 610, 20, "t4");
 
         //ADD BORDERS END
 
@@ -544,8 +564,6 @@ public class Gui {
 
     }
 
-
-
     protected class UndoGame implements ActionListener{
 
         @Override
@@ -559,6 +577,49 @@ public class Gui {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String s = (String) JOptionPane.showInputDialog(null);
+
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader("save/" + s + ".rebus"));
+                if (br.readLine() != null) {
+                    JOptionPane.showMessageDialog(panelOfAll, "Takový soubor již existuje!");
+                    return;
+                }
+            } catch (FileNotFoundException e1) {
+
+            } catch (IOException e1) {
+
+            }
+
+            try {
+                FileOutputStream fileOut = new FileOutputStream("save/" + s + ".rebus");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(mainDeck);
+                out.writeObject(swapDeck);
+
+                out.writeObject(targetDeck1);
+                out.writeObject(targetDeck2);
+                out.writeObject(targetDeck3);
+                out.writeObject(targetDeck4);
+
+                out.writeObject(workingDeck1);
+                out.writeObject(workingDeck2);
+                out.writeObject(workingDeck3);
+                out.writeObject(workingDeck4);
+                out.writeObject(workingDeck5);
+                out.writeObject(workingDeck6);
+                out.writeObject(workingDeck7);
+
+                out.close();
+                fileOut.close();
+                System.out.println("Saved to " + s );
+
+            }
+            catch (IOException i)
+            {
+                JOptionPane.showMessageDialog(panelOfAll, "Takový soubor již existuje!");
+            }
 
         }
     }
@@ -567,9 +628,83 @@ public class Gui {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            mainDeck = null;
+            swapDeck = null;
+
+            targetDeck1 = null;
+            targetDeck2 = null;
+            targetDeck3 = null;
+            targetDeck4 = null;
+
+            workingDeck1 = null;
+            workingDeck2 = null;
+            workingDeck3 = null;
+            workingDeck4 = null;
+            workingDeck5 = null;
+            workingDeck6 = null;
+            workingDeck7 = null;
+            String s = (String) JOptionPane.showInputDialog(null);
+            try {
+                FileInputStream fileIn = new FileInputStream("save/"+s + ".rebus");
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                mainDeck = (CardDeck) in.readObject();
+
+                addListenerDeck(mainDeck);
+
+                swapDeck = (CardStack) in.readObject();
+                addListenerStack(swapDeck);
+
+                targetDeck1 = (CardDeck) in.readObject();
+                addListenerDeck(targetDeck1);
+
+                targetDeck2 = (CardDeck) in.readObject();
+                addListenerDeck(targetDeck2);
+                targetDeck3 = (CardDeck) in.readObject();
+                addListenerDeck(targetDeck3);
+                targetDeck4 = (CardDeck) in.readObject();
+                addListenerDeck(targetDeck4);
+
+                workingDeck1 = (CardStack) in.readObject();
+                addListenerStack(workingDeck1);
+                workingDeck2 = (CardStack) in.readObject();
+                addListenerStack(workingDeck2);
+                workingDeck3 = (CardStack) in.readObject();
+                addListenerStack(workingDeck3);
+                workingDeck4 = (CardStack) in.readObject();
+                addListenerStack(workingDeck4);
+                workingDeck5 = (CardStack) in.readObject();
+                addListenerStack(workingDeck5);
+                workingDeck6 = (CardStack) in.readObject();
+                addListenerStack(workingDeck6);
+                workingDeck7 = (CardStack) in.readObject();
+                addListenerStack(workingDeck7);
+
+                repaint();
+            }
+            catch (IOException i)
+            {
+                JOptionPane.showMessageDialog(panelOfAll, "Takový soubor neexistuje!");
+            }
+            catch (ClassNotFoundException c)
+            {
+                JOptionPane.showMessageDialog(panelOfAll, "Nastala vnitřní chyba...");
+            }
 
         }
     }
+    private void addListenerStack(CardStack stack)
+    {
+        for (int k = 0; k < stack.size(); k++)
+            stack.get(k).getJLabel().addMouseListener(actionListener);
+    }
+
+    private void addListenerDeck(CardDeck deck)
+    {
+        for (int k = 0; k < deck.size(); k++)
+            deck.get(k).getJLabel().addMouseListener(actionListener);
+    }
+
+
 
     private void prepareForNewGame()
     {

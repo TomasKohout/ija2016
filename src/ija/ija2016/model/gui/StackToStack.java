@@ -42,8 +42,8 @@ public class StackToStack{
                 tmp.get(i).getJLabel().setText(tmp.get(i).toString() + "-" + this.destination);
                 i++;
             }
-
-            source.get().turnFaceUp();
+            if (!source.isEmpty())
+                source.get().turnFaceUp();
         }
         else
         {
