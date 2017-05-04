@@ -1,9 +1,6 @@
 package ija.ija2016.model.gui;
 
-import ija.ija2016.model.cards.Card;
-import ija.ija2016.model.cards.CardStack;
-import ija.ija2016.model.cards.CardTargetDeck;
-import ija.ija2016.model.cards.CardDeck;
+import ija.ija2016.model.cards.*;
 import javafx.beans.binding.ObjectExpression;
 
 /**
@@ -96,7 +93,7 @@ public class Transfer {
                 tmp.get(i).getJLabel().setText(tmp.get(i).toString() + "-" + this.destination);
                 i++;
             }
-            if (!source.isEmpty()) {
+            if (!source.isEmpty() && !source.get(source.size()-1).isTurnedFaceUp()) {
                 source.get().turnFaceUp();
                 this.turnBackLastCard = true;
             }
@@ -119,8 +116,14 @@ public class Transfer {
         if(turnBackLastCard)
             dest.get(dest.size()-1).turn();
 
-        while (!tmp.isEmpty()){
-            dest.forcePut(tmp.pop(),this.source);
+        CardStack help = new CardStackMethods(20);
+
+        while (!tmp.isEmpty()) {
+            help.forcePut(tmp.pop(), this.source);
+        }
+
+        while (!help.isEmpty()) {
+            dest.forcePut(help.pop(), this.source);
         }
     }
 
