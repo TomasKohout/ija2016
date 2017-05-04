@@ -86,7 +86,6 @@ public class Panels {
                 game1.setSize(FRAME_WIDTH, FRAME_HEIGH);
                 panelOfAll.add(game1);
                 gameLogic1 = new Gui(game1, exitGame1);
-                setSingleSize();
             }
             else if (game2 == null)
             {
@@ -96,7 +95,6 @@ public class Panels {
                 game1.add(exitGame2);
                 panelOfAll.add(game2);
                 gameLogic2 = new Gui(game2, exitGame2);
-                setDoubleSize();
             }
             else if (game3 == null) {
 
@@ -116,7 +114,7 @@ public class Panels {
                 panelOfAll.add(game4);
                 gameLogic4 = new Gui(game4, exitGame4);
             }
-
+            setSize();
             repaint();
         }
     }
