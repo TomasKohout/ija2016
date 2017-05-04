@@ -140,7 +140,14 @@ public class Gui implements Serializable{
         load.setBounds(110,0,50,20);
         load.setMargin(new Insets(0,0,0,0));
         load.addActionListener(new LoadGame());
+
         this.exitGame = exitGame;
+
+        resetGame = new JButton("Reset");
+        resetGame.setFont(new Font("Lucida Grande", 1, 10));
+        resetGame.setBounds(210, 0,50,20);
+        resetGame.setMargin(new Insets(0,0,0,0));
+        resetGame.addActionListener(new ResetGame());
 
 
         setUp();
@@ -243,6 +250,7 @@ public class Gui implements Serializable{
         panelOfAll.add(save);
         panelOfAll.add(exitGame);
         panelOfAll.add(load);
+        panelOfAll.add(resetGame);
             paintWorkingDeck(workingLabel1, workingDeck1, 10, 310);
             wd1 = workingDeck1.size();
 
@@ -697,6 +705,16 @@ public class Gui implements Serializable{
 
         }
     }
+
+    protected class ResetGame implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            prepareForNewGame();
+            setUp();
+            repaint();
+        }
+    }
     private void addListenerStack(CardStack stack)
     {
         for (int k = 0; k < stack.size(); k++)
@@ -730,15 +748,7 @@ public class Gui implements Serializable{
         workingDeck5 = null;
         workingDeck6 = null;
         workingDeck7 = null;
-        workingLabel1 = new JLabel[25];
-        workingLabel2 = new JLabel[25];
-        workingLabel3 = new JLabel[25];
-        workingLabel4 = new JLabel[25];
-        workingLabel5 = new JLabel[25];
-        workingLabel6 = new JLabel[25];
-        workingLabel7 = new JLabel[25];
-        mainLabel = new JLabel[53];
-        swapLabel = new JLabel[25];
+
         workingDeck1 = factory.createWorkingPack();
         workingDeck2 = factory.createWorkingPack();
         workingDeck3 = factory.createWorkingPack();
@@ -752,8 +762,7 @@ public class Gui implements Serializable{
 
         swapDeck = factory.createWorkingPack();
         mainDeck = factory.createCardDeck();
-        actionListener = null;
-        actionListener = new Configuration();
+
         for (int i = 0; i < mainDeck.size(); i++)
         {
             mainDeck.get(i).getJLabel().addMouseListener(this.actionListener);

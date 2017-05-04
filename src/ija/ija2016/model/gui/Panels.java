@@ -53,7 +53,7 @@ public class Panels {
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         newGame = new JButton("New Game");
         newGame.setFont(new Font("Lucida Grande", 1, 10));
-        newGame.setBounds(205,22,80,20);
+        newGame.setBounds(210,0,80,20);
         newGame.setMargin(new Insets(0,0,0,0));
         newGame.addActionListener(new NewGameButton());
 
@@ -136,10 +136,37 @@ public class Panels {
     }
     private void setSize()
     {
-        if (game1 != null && game2 != null)
-            setDoubleSize();
-        else
+        int count = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    if(game1 == null)
+                        count++;
+                    break;
+                case 1:
+                    if (game2 == null)
+                        count++;
+                    break;
+                case 2:
+                    if (game3  == null)
+                        count++;
+                    break;
+                case 3:
+                    if (game4 == null)
+                        count++;
+                    break;
+            }
+        }
+
+        if (count == 3 && game1 != null)
             setSingleSize();
+        else if (game1 == null && game2 == null && game3 == null && game4 == null)
+            setSingleSize();
+        else
+            setDoubleSize();
+
     }
     private JButton createButton()
     {
@@ -171,34 +198,23 @@ public class Panels {
                 if(exitGame1 == (JButton)tmp)
                 {
                     panelOfAll.remove(game1);
-                    if (game2 != null) {
-                        game1 = game2;
-                        game1.setLocation(0, 0);
-                        gameLogic1 = gameLogic2;
-                        gameLogic2 = null;
-                        game2 = null;
-                    }
+                        game1 = null;
+                        gameLogic1 = null;
                 }
                 else if (exitGame2 == (JButton)tmp)
                 {
                     panelOfAll.remove(game2);
-                    if (game3 != null) {
-                        game2 = game3;
-                        game2.setLocation(FRAME_WIDTH, 0);
-                        gameLogic2 = gameLogic3;
-                        gameLogic3 = null;
-                        game3 = null;
-                    }
+
+                        game2 = null;
+                        gameLogic2 = null;
+
                 }
                 else if (exitGame3 == (JButton)tmp) {
                     panelOfAll.remove(game3);
-                    if (game4 != null) {
-                        game3 = game4;
-                        game3.setLocation(0, FRAME_HEIGH);
-                        gameLogic3 = gameLogic4;
-                        gameLogic4 = null;
-                        game4 = null;
-                    }
+
+                        game3 = null;
+                        gameLogic3 = null;
+
                 }
                 else if (exitGame4 == (JButton)tmp)
                 {
