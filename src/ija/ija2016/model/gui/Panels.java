@@ -53,7 +53,7 @@ public class Panels {
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         newGame = new JButton("New Game");
         newGame.setFont(new Font("Lucida Grande", 1, 10));
-        newGame.setBounds(210,0,80,20);
+        newGame.setBounds(260,0,80,20);
         newGame.setMargin(new Insets(0,0,0,0));
         newGame.addActionListener(new NewGameButton());
 
