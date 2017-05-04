@@ -14,8 +14,8 @@ public class StackToTargetDeck implements Command{
         this.move = move;
     }
 
-    public void execute() {
-        move.StackToTargetDeck();
+    public boolean execute() {
+        return move.StackToTargetDeck();
     }
 
     public void undo(){

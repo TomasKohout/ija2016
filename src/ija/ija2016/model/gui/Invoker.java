@@ -10,8 +10,9 @@ public class Invoker {
     private List<Command> orderList = new ArrayList<Command>();
 
     public void takeOrder(Command order){
-        orderList.add(order);
-        order.execute();
+        if(order.execute()) {
+            orderList.add(order);
+        }
     }
 
     public void undo(){

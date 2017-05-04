@@ -14,8 +14,8 @@ public class StackToStack implements Command{
         this.move = move;
     }
 
-    public void execute() {
-        move.StackToStack();
+    public boolean execute() {
+        return move.StackToStack();
     }
 
     public void undo(){

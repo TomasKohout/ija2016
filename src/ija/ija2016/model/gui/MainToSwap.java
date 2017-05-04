@@ -1,8 +1,5 @@
 package ija.ija2016.model.gui;
 
-import ija.ija2016.model.cards.Card;
-import ija.ija2016.model.cards.CardDeck;
-import ija.ija2016.model.cards.CardStack;
 
 /**
  * Created by tom on 2.5.17.
@@ -14,8 +11,8 @@ public class MainToSwap implements Command{
         this.move = move;
     }
 
-    public void execute() {
-        move.MainToSwap();
+    public boolean execute() {
+        return move.MainToSwap();
     }
 
     public void undo(){

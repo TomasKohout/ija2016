@@ -8,6 +8,6 @@ import ija.ija2016.model.cards.CardTargetDeck;
  * Created by tom on 2.5.17.
  */
 public interface Command {
-    public void execute();
+    public boolean execute();
     public void undo();
 }

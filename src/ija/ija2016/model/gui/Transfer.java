@@ -28,12 +28,12 @@ public class Transfer {
         this.destCard = destCard;
     }
 
-    public void MainToSwap()
+    public boolean MainToSwap()
     {
         CardDeck source = (CardDeck) this.src;
         CardStack dest = (CardStack) this.dst;
         if (source.isEmpty() && dest.isEmpty())
-            return;
+            return false;
 
         if (source.isEmpty()) {
             while (!dest.isEmpty()) {
@@ -46,6 +46,7 @@ public class Transfer {
             tmp.turn();
             dest.forcePut(tmp, this.source);
         }
+        return true;
     }
 
     public void UndoMainToSwap() {
@@ -68,24 +69,24 @@ public class Transfer {
 
     }
 
-    public void StackToStack() {
+    public boolean StackToStack() {
         CardStack source = (CardStack) this.src;
         CardStack dest = (CardStack) this.dst;
 
         if (destCard != null) {
             if (!(sourceCard.isTurnedFaceUp() && destCard.isTurnedFaceUp()))
-                return;
+                return false;
 
             if (sourceCard.similarColorTo(destCard))
-                return;
+                return false;
 
             if (sourceCard.value() + 1 != destCard.value())
-                return;
+                return false;
         }
         else
         {
             if (sourceCard.value() != 13)
-                return;
+                return false;
         }
         CardStack tmp = source.pop(sourceCard);
         if (dest.put(tmp))
@@ -105,6 +106,8 @@ public class Transfer {
             while (!tmp.isEmpty())
                 source.put(tmp.pop());
         }
+
+        return true;
     }
 
     public void UndoStackToStack() {
@@ -122,7 +125,7 @@ public class Transfer {
     }
 
 
-    public void StackToTargetDeck()
+    public boolean StackToTargetDeck()
     {
         CardStack source = (CardStack) this.src;
         CardTargetDeck dest = (CardTargetDeck) this.dst;
@@ -130,31 +133,33 @@ public class Transfer {
         if (destCard == null)
         {
             if (sourceCard.value() != 1)
-                return;
+                return false;
 
             dest.setColor(sourceCard.color());
         }
         else
         {
             if(sourceCard.color() != destCard.color())
-                return;
+                return false;
 
             if(sourceCard.value() != destCard.value() + 1)
-                return;
+                return false;
         }
 
         if (source.get().toString().compareTo(sourceCard.toString()) != 0)
-            return;
+            return false;
 
         dest.put(source.pop());
         if (source.isEmpty())
-            return;
+            return false;
 
         if(!source.get(source.size()-1).isTurnedFaceUp()) {
             source.get().turnFaceUp();
             this.turnBackLastCard = true;
         }
         sourceCard.getJLabel().setText(sourceCard.toString() + "-" + this.destination);
+
+        return true;
     }
 
     public void UndoStackToTargetDeck(){
@@ -168,27 +173,28 @@ public class Transfer {
     }
 
 
-    public void TargetDeckToStack()
+    public boolean TargetDeckToStack()
     {
         CardTargetDeck source = (CardTargetDeck) this.src;
         CardStack dest = (CardStack) this.dst;
 
         if(destCard != null) {
             if (sourceCard.value() + 1 != destCard.value())
-                return;
+                return false;
             if (sourceCard.similarColorTo(destCard))
-                return;
+                return false;
             if (!(sourceCard.isTurnedFaceUp() && destCard.isTurnedFaceUp()))
-                return;
+                return false;
         }
         else
         {
             if (sourceCard.value() != 13)
-                return;
+                return false;
         }
 
         dest.put(source.pop());
         sourceCard.getJLabel().setText(sourceCard.toString() + "-" + this.destination);
+        return true;
     }
 
     public void UndoTargetDeckToStack(){
