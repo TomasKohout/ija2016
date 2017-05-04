@@ -402,13 +402,16 @@ public class Gui implements Serializable{
                             source.compareTo("m") != 0)
                         moveCards(sourceCard, destCard);
                 }
+
+                repaint();
+                clearMove();
+
                 if (targetDeck1.size() == 13 &&
                         targetDeck2.size() == 13 &&
                         targetDeck3.size() == 13 &&
-                        targetDeck4.size() == 13)
-                JOptionPane.showMessageDialog(panelOfAll, "Vyhráli jste!");
-                repaint();
-                clearMove();
+                        targetDeck4.size() == 13) {
+                    JOptionPane.showMessageDialog(panelOfAll, "Vyhráli jste!");
+                }
 
             }
         }
@@ -593,6 +596,9 @@ public class Gui implements Serializable{
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser chooser = new JFileChooser();
+            String str =System.getProperty("user.dir") + "/examples";
+            System.out.println(str);
+            chooser.setCurrentDirectory(new File(str));
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Rebus Solitaire","rebus");
             chooser.setFileFilter(filter);
             int ret = chooser.showSaveDialog(panelOfAll);
@@ -655,6 +661,8 @@ public class Gui implements Serializable{
             File s = null;
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Rebus Solitaire","rebus");
+            String str =System.getProperty("user.dir") + "/examples";
+            chooser.setCurrentDirectory(new File(str));
             chooser.setFileFilter(filter);
             int ret = chooser.showOpenDialog(panelOfAll);
             if (ret == JFileChooser.APPROVE_OPTION)
