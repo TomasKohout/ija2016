@@ -35,8 +35,6 @@ public class Panels {
     private Gui gameLogic3;
     private Gui gameLogic4;
 
-    private GridBagConstraints gbc;
-
     public Panels()
     {
         mainFrame = new JFrame("Rébus Solitaire");

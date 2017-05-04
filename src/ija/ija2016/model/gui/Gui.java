@@ -8,6 +8,8 @@ import ija.ija2016.model.cards.CardTargetDeck;
 
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
@@ -590,49 +592,43 @@ public class Gui implements Serializable{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String s = (String) JOptionPane.showInputDialog(null);
-
-            BufferedReader br = null;
-            try {
-                br = new BufferedReader(new FileReader("save/" + s + ".rebus"));
-                if (br.readLine() != null) {
-                    JOptionPane.showMessageDialog(panelOfAll, "Takový soubor již existuje!");
-                    return;
-                }
-            } catch (FileNotFoundException e1) {
-
-            } catch (IOException e1) {
-
-            }
-
-            try {
-                FileOutputStream fileOut = new FileOutputStream("save/" + s + ".rebus");
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(mainDeck);
-                out.writeObject(swapDeck);
-
-                out.writeObject(targetDeck1);
-                out.writeObject(targetDeck2);
-                out.writeObject(targetDeck3);
-                out.writeObject(targetDeck4);
-
-                out.writeObject(workingDeck1);
-                out.writeObject(workingDeck2);
-                out.writeObject(workingDeck3);
-                out.writeObject(workingDeck4);
-                out.writeObject(workingDeck5);
-                out.writeObject(workingDeck6);
-                out.writeObject(workingDeck7);
-
-                out.close();
-                fileOut.close();
-                System.out.println("Saved to " + s );
-
-            }
-            catch (IOException i)
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Rebus Solitaire","rebus");
+            chooser.setFileFilter(filter);
+            int ret = chooser.showSaveDialog(panelOfAll);
+            if (ret == JFileChooser.APPROVE_OPTION )
             {
-                JOptionPane.showMessageDialog(panelOfAll, "Takový soubor již existuje!");
+                BufferedReader br = null;
+
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(chooser.getSelectedFile() + ".rebus");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(mainDeck);
+                    out.writeObject(swapDeck);
+
+                    out.writeObject(targetDeck1);
+                    out.writeObject(targetDeck2);
+                    out.writeObject(targetDeck3);
+                    out.writeObject(targetDeck4);
+
+                    out.writeObject(workingDeck1);
+                    out.writeObject(workingDeck2);
+                    out.writeObject(workingDeck3);
+                    out.writeObject(workingDeck4);
+                    out.writeObject(workingDeck5);
+                    out.writeObject(workingDeck6);
+                    out.writeObject(workingDeck7);
+
+                    out.close();
+                    fileOut.close();
+
+                }
+                catch (IOException i)
+                {
+                    JOptionPane.showMessageDialog(panelOfAll, "Takový soubor již existuje!");
+                }
             }
+
 
         }
     }
@@ -656,52 +652,62 @@ public class Gui implements Serializable{
             workingDeck5 = null;
             workingDeck6 = null;
             workingDeck7 = null;
-            String s = (String) JOptionPane.showInputDialog(null);
-            try {
-                FileInputStream fileIn = new FileInputStream("save/"+s + ".rebus");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                mainDeck = (CardDeck) in.readObject();
-
-                addListenerDeck(mainDeck);
-
-                swapDeck = (CardStack) in.readObject();
-                addListenerStack(swapDeck);
-
-                targetDeck1 = (CardDeck) in.readObject();
-                addListenerDeck(targetDeck1);
-
-                targetDeck2 = (CardDeck) in.readObject();
-                addListenerDeck(targetDeck2);
-                targetDeck3 = (CardDeck) in.readObject();
-                addListenerDeck(targetDeck3);
-                targetDeck4 = (CardDeck) in.readObject();
-                addListenerDeck(targetDeck4);
-
-                workingDeck1 = (CardStack) in.readObject();
-                addListenerStack(workingDeck1);
-                workingDeck2 = (CardStack) in.readObject();
-                addListenerStack(workingDeck2);
-                workingDeck3 = (CardStack) in.readObject();
-                addListenerStack(workingDeck3);
-                workingDeck4 = (CardStack) in.readObject();
-                addListenerStack(workingDeck4);
-                workingDeck5 = (CardStack) in.readObject();
-                addListenerStack(workingDeck5);
-                workingDeck6 = (CardStack) in.readObject();
-                addListenerStack(workingDeck6);
-                workingDeck7 = (CardStack) in.readObject();
-                addListenerStack(workingDeck7);
-
-                repaint();
-            }
-            catch (IOException i)
+            File s = null;
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Rebus Solitaire","rebus");
+            chooser.setFileFilter(filter);
+            int ret = chooser.showOpenDialog(panelOfAll);
+            if (ret == JFileChooser.APPROVE_OPTION)
             {
-                JOptionPane.showMessageDialog(panelOfAll, "Takový soubor neexistuje!");
+                s = chooser.getSelectedFile();
+                try {
+                    FileInputStream fileIn = new FileInputStream(s);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    mainDeck = (CardDeck) in.readObject();
+
+                    addListenerDeck(mainDeck);
+
+                    swapDeck = (CardStack) in.readObject();
+                    addListenerStack(swapDeck);
+
+                    targetDeck1 = (CardDeck) in.readObject();
+                    addListenerDeck(targetDeck1);
+
+                    targetDeck2 = (CardDeck) in.readObject();
+                    addListenerDeck(targetDeck2);
+                    targetDeck3 = (CardDeck) in.readObject();
+                    addListenerDeck(targetDeck3);
+                    targetDeck4 = (CardDeck) in.readObject();
+                    addListenerDeck(targetDeck4);
+
+                    workingDeck1 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck1);
+                    workingDeck2 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck2);
+                    workingDeck3 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck3);
+                    workingDeck4 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck4);
+                    workingDeck5 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck5);
+                    workingDeck6 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck6);
+                    workingDeck7 = (CardStack) in.readObject();
+                    addListenerStack(workingDeck7);
+
+                    repaint();
+                }
+                catch (IOException i)
+                {
+                    JOptionPane.showMessageDialog(panelOfAll, "Takový soubor neexistuje!");
+                }
+                catch (ClassNotFoundException c)
+                {
+                    JOptionPane.showMessageDialog(panelOfAll, "Nastala vnitřní chyba...");
+                }
             }
-            catch (ClassNotFoundException c)
-            {
-                JOptionPane.showMessageDialog(panelOfAll, "Nastala vnitřní chyba...");
-            }
+
+
 
         }
     }
