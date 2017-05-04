@@ -154,7 +154,7 @@ public class Transfer {
 
         dest.put(source.pop());
         if (source.isEmpty())
-            return false;
+            return true;
 
         if(!source.get(source.size()-1).isTurnedFaceUp()) {
             source.get().turnFaceUp();
