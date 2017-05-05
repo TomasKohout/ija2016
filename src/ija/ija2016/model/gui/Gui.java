@@ -5,6 +5,7 @@ import ija.ija2016.model.cards.Card;
 import ija.ija2016.model.cards.CardDeck;
 import ija.ija2016.model.cards.CardStack;
 import ija.ija2016.model.cards.CardTargetDeck;
+import jdk.nashorn.internal.objects.NativeUint8Array;
 
 
 import javax.swing.*;
@@ -57,6 +58,7 @@ public class Gui implements Serializable{
     private transient JButton save;
     private transient JButton load;
     private transient JButton exitGame;
+    private transient JButton hint;
 
     private CardStack swapDeck;
     private CardDeck mainDeck;
@@ -150,6 +152,12 @@ public class Gui implements Serializable{
         resetGame.setBounds(210, 0,50,20);
         resetGame.setMargin(new Insets(0,0,0,0));
         resetGame.addActionListener(new ResetGame());
+
+        hint = new JButton("Hint");
+        hint.setFont(new Font("Lucida Grande", 1, 10));
+        hint.setBounds(260, 0,50,20);
+        hint.setMargin(new Insets(0,0,0,0));
+        hint.addActionListener(new Hint());
 
 
         setUp();
@@ -253,6 +261,7 @@ public class Gui implements Serializable{
         panelOfAll.add(exitGame);
         panelOfAll.add(load);
         panelOfAll.add(resetGame);
+        panelOfAll.add(hint);
             paintWorkingDeck(workingLabel1, workingDeck1, 10, 310);
             wd1 = workingDeck1.size();
 
@@ -728,6 +737,354 @@ public class Gui implements Serializable{
             setUp();
             repaint();
         }
+    }
+
+    protected class Hint implements ActionListener{
+
+        private int start = 0;
+        private int start2 = 0;
+        private int end = 7;
+        private boolean pruchod = true;
+        private boolean pruchod2 = true;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(panelOfAll, findHint());
+        }
+
+        private CardStack getWorkingDeck(int i)
+        {
+            i++;
+            switch (i)
+            {
+                case 1: return workingDeck1;
+                case 2: return workingDeck2;
+                case 3: return workingDeck3;
+                case 4: return workingDeck4;
+                case 5: return workingDeck5;
+                case 6: return workingDeck6;
+                case 7: return workingDeck7;
+            }
+
+            return null;
+        }
+
+        private String whatever(int i ,CardStack from)
+        {
+            Card card = null;
+            for (int g = 0; g < from.size(); g++)
+            {
+                if (from.get(g).isTurnedFaceUp())
+                {
+                    card = from.get(g);
+                    break;
+                }
+            }
+            if (card == null)
+                return "";
+            for (int k = 0, l = 0; k < end ; k++, l++) {
+
+                if (getWorkingDeck(k).isEmpty())
+                    continue;
+
+                if (card.value() + 1 == getWorkingDeck(k).get().value() && !card.similarColorTo(getWorkingDeck(k).get()) && card.isTurnedFaceUp() && getWorkingDeck(k).get().isTurnedFaceUp()) {
+                    return card.toString() + " To: " + getWorkingDeck(k).get().toString();
+                }
+
+                if(getWorkingDeck(k).isEmpty() && card.value() == 13)
+                    return card.toString() + " To: Empty Place";
+            }
+
+            return "";
+        }
+
+        private String findHint()
+        {
+            if (start == 7)
+                start = 0;
+            if (start2 == 7)
+                start2 = 0;
+            String ret = "";
+            pruchod = true;
+
+            while (start < end )
+            {
+                start++;
+                CardStack from = getWorkingDeck(start - 1);
+
+                if (from.isEmpty())
+                    continue;
+                switch (start-1)
+                {
+                    case 0:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+
+                    case 1:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+
+                    case 2:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+
+                    case 3:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+                    case 4:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+                    case 5:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+                    case 6:
+                        ret = whatever(start,from);
+                        if (!ret.isEmpty())
+                            return ret;
+                        break;
+                }
+
+                if (pruchod)
+                {
+                    start = 0;
+                    pruchod = false;
+                }
+
+
+            }
+            if (!swapDeck.isEmpty()) {
+                for (int i = 0; i < 11; i++) {
+                    if (!mainTarget(i).isEmpty())
+                        return mainTarget(i);
+                }
+            }
+            pruchod2 = true;
+            String tmp = "";
+            while (start2 < end)
+            {
+                start2++;
+                switch (start2 - 1){
+                    case 0:
+                        tmp = workWithTarget(workingDeck1);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 1:
+                        tmp = workWithTarget(workingDeck2);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 2:
+                        tmp = workWithTarget(workingDeck3);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 3:
+                        tmp = workWithTarget(workingDeck4);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 4:
+                        tmp = workWithTarget(workingDeck5);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 5:
+                        tmp = workWithTarget(workingDeck6);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                    case 6:
+                        tmp = workWithTarget(workingDeck7);
+                        if (!tmp.isEmpty())
+                            return tmp;
+                        break;
+                }
+
+                if (pruchod2)
+                {
+                    start2 = 0;
+                    pruchod2 = false;
+                }
+            }
+
+
+            return "Žádné tahy nejsou možné";
+
+        }
+    }
+    private String workWithTarget(CardStack stack)
+    {
+        if (stack.isEmpty())
+            return "";
+
+        for (int i = 0; i < 4; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    if (targetDeck1.isEmpty() && stack.get().value() == 1)
+                        return stack.get().toString() + " To: Target Deck";
+                    else if (targetDeck1.isEmpty())
+                        return "";
+
+                    if(stack.get().value() - 1 == targetDeck1.get().value() && stack.get().color() == targetDeck1.get().color())
+                        return stack.get().toString() + " To: " + targetDeck1.get().toString();
+
+                    break;
+                case 1:
+                    if (targetDeck2.isEmpty() && stack.get().value() == 1)
+                        return stack.get().toString() + " To: Target Deck";
+                    else if (targetDeck2.isEmpty())
+                        return "";
+
+                    if(stack.get().value() - 1 == targetDeck2.get().value() && stack.get().color() == targetDeck2.get().color())
+                        return stack.get().toString() + " To: " + targetDeck2.get().toString();
+
+                    break;
+                case 2:
+                    if (targetDeck3.isEmpty() && stack.get().value() == 1)
+                        return stack.get().toString() + " To: Target Deck";
+                    else if (targetDeck3.isEmpty())
+                        return "";
+
+                    if(stack.get().value() - 1 == targetDeck3.get().value() && stack.get().color() == targetDeck3.get().color())
+                        return stack.get().toString() + " To: " + targetDeck3.get().toString();
+
+                    break;
+
+                case 3:
+                    if (targetDeck4.isEmpty() && stack.get().value() == 1)
+                        return stack.get().toString() + " To: Target Deck";
+                    else if (targetDeck4.isEmpty())
+                        return "";
+
+                    if(stack.get().value() - 1 == targetDeck4.get().value() && stack.get().color() == targetDeck4.get().color())
+                        return stack.get().toString() + " To: " + targetDeck4.get().toString();
+
+                    break;
+            }
+        }
+        return "";
+    }
+    private String mainTarget (int i)
+    {
+        switch (i)
+        {
+            case 0:
+                if (swapDeck.get().value() == 1 && targetDeck1.isEmpty())
+                    return swapDeck.get().toString() + " To: Target Deck";
+                else if (targetDeck1.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() - 1 == targetDeck1.get().value())
+                    return swapDeck.get().toString() + " To: " + targetDeck1.get().toString();
+                return "";
+            case 1:
+                if (swapDeck.get().value() == 1 && targetDeck2.isEmpty())
+                    return swapDeck.get().toString() + " To: Target Deck";
+                else if (targetDeck2.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() - 1 == targetDeck2.get().value())
+                    return swapDeck.get().toString() + " To: " + targetDeck2.get().toString();
+                return "";
+            case 2:
+                if (swapDeck.get().value() == 1 && targetDeck3.isEmpty())
+                    return swapDeck.get().toString() + " To: Target Deck";
+                else if (targetDeck3.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() - 1 == targetDeck3.get().value())
+                    return swapDeck.get().toString() + " To: " + targetDeck3.get().toString();
+                return "";
+            case 3:
+                if (swapDeck.get().value() == 1 && targetDeck4.isEmpty())
+                    return swapDeck.get().toString() + " To: Target Deck";
+                else if (targetDeck4.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() - 1 == targetDeck4.get().value())
+                    return swapDeck.get().toString() + " To: " + targetDeck4.get().toString();
+                return "";
+
+            case 4:
+                if (swapDeck.get().value() == 13 && workingDeck1.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck1.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck1.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck1.get().toString();
+                return "";
+            case 5:
+                if (swapDeck.get().value() == 13 && workingDeck2.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck2.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck2.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck2.get().toString();
+                return "";
+            case 6:
+                if (swapDeck.get().value() == 13 && workingDeck3.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck3.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck3.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck3.get().toString();
+                return "";
+            case 7:
+                if (swapDeck.get().value() == 13 && workingDeck4.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck4.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck4.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck4.get().toString();
+                return "";
+            case 8:
+                if (swapDeck.get().value() == 13 && workingDeck5.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck5.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck5.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck5.get().toString();
+                return "";
+            case 9:
+                if (swapDeck.get().value() == 13 && workingDeck6.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck6.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck6.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck6.get().toString();
+                return "";
+            case 10:
+                if (swapDeck.get().value() == 13 && workingDeck7.isEmpty())
+                    return swapDeck.get().toString() + " To: Working Deck";
+                else if (workingDeck7.isEmpty())
+                    return "";
+
+                if (swapDeck.get().value() + 1 == workingDeck7.get().value())
+                    return swapDeck.get().toString() + " To: " + workingDeck7.get().toString();
+                return "";
+        }
+
+        return "";
     }
     private void addListenerStack(CardStack stack)
     {
