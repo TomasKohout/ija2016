@@ -5,6 +5,10 @@ import java.io.Serializable;
 /**
  * Created by xblaze31 on 24.3.2017.
  */
+
+/**
+ * Class represents Target Deck.
+ */
 public class CardTargetDeck extends CardDeckMethods implements Serializable {
     private Card.Color targetColor;
 

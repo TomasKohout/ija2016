@@ -47,7 +47,7 @@ public interface Card {
 
     /**
      * Check color of card.
-     * @return If card is black return true.
+     * @return If card is black return true otherwise false.
      */
     boolean isBlackOrRed();
 
@@ -72,7 +72,7 @@ public interface Card {
     JLabel getJLabel();
 
     /**
-     *
+     * Turn card.
      * @return Turned card.
      */
     Card turn();

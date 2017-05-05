@@ -14,7 +14,7 @@ public interface CardDeck{
     int size();
 
     /**
-     * Put card into deck.
+     * Put card into deck when is not full.
      * @param card Card
      * @return True when operation have access.
      */
