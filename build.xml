@@ -7,7 +7,6 @@
                 <mkdir dir="dest-client"/>
                 <delete dir="doc"/>
                 <mkdir dir="doc"/>
-		<delete dir="lib/images"/>
         </target>
 
         <target name="compile" depends="clean">
