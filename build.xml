@@ -20,13 +20,13 @@
                 </javac>
                 <mkdir dir="build/images"/>
                 <copy todir="build/images">
-                        <fileset dir="src/images">
+                        <fileset dir="lib/images">
                                 <include name="*.png"/>
                         </fileset>
                 </copy>
 
                 <jar destfile="dest-client/ija-client.jar" basedir="build" update="true">
-                        <fileset dir="build/images"/>
+                        <fileset dir="lib/images"/>
                         <manifest>
                                 <attribute name="Main-Class" value="ija.ija2016.model.main.Main"/>
                         </manifest>
