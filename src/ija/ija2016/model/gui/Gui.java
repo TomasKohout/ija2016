@@ -996,7 +996,7 @@ public class Gui implements Serializable{
                 else if (targetDeck1.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() - 1 == targetDeck1.get().value())
+                if (swapDeck.get().value() - 1 == targetDeck1.get().value() && swapDeck.get().color() == targetDeck1.get().color())
                     return swapDeck.get().toString() + " To: " + targetDeck1.get().toString();
                 return "";
             case 1:
@@ -1005,7 +1005,7 @@ public class Gui implements Serializable{
                 else if (targetDeck2.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() - 1 == targetDeck2.get().value())
+                if (swapDeck.get().value() - 1 == targetDeck2.get().value() && swapDeck.get().color() == targetDeck2.get().color())
                     return swapDeck.get().toString() + " To: " + targetDeck2.get().toString();
                 return "";
             case 2:
@@ -1014,7 +1014,7 @@ public class Gui implements Serializable{
                 else if (targetDeck3.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() - 1 == targetDeck3.get().value())
+                if (swapDeck.get().value() - 1 == targetDeck3.get().value() && swapDeck.get().color() == targetDeck3.get().color())
                     return swapDeck.get().toString() + " To: " + targetDeck3.get().toString();
                 return "";
             case 3:
@@ -1023,7 +1023,7 @@ public class Gui implements Serializable{
                 else if (targetDeck4.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() - 1 == targetDeck4.get().value())
+                if (swapDeck.get().value() - 1 == targetDeck4.get().value() && swapDeck.get().color() == targetDeck4.get().color())
                     return swapDeck.get().toString() + " To: " + targetDeck4.get().toString();
                 return "";
 
@@ -1033,7 +1033,7 @@ public class Gui implements Serializable{
                 else if (workingDeck1.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck1.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck1.get().value() && !swapDeck.get().similarColorTo(workingDeck1.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck1.get().toString();
                 return "";
             case 5:
@@ -1042,7 +1042,7 @@ public class Gui implements Serializable{
                 else if (workingDeck2.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck2.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck2.get().value() && !swapDeck.get().similarColorTo(workingDeck2.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck2.get().toString();
                 return "";
             case 6:
@@ -1051,7 +1051,7 @@ public class Gui implements Serializable{
                 else if (workingDeck3.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck3.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck3.get().value() && !swapDeck.get().similarColorTo(workingDeck3.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck3.get().toString();
                 return "";
             case 7:
@@ -1060,7 +1060,7 @@ public class Gui implements Serializable{
                 else if (workingDeck4.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck4.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck4.get().value() && !swapDeck.get().similarColorTo(workingDeck4.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck4.get().toString();
                 return "";
             case 8:
@@ -1069,7 +1069,7 @@ public class Gui implements Serializable{
                 else if (workingDeck5.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck5.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck5.get().value() && !swapDeck.get().similarColorTo(workingDeck5.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck5.get().toString();
                 return "";
             case 9:
@@ -1078,7 +1078,7 @@ public class Gui implements Serializable{
                 else if (workingDeck6.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck6.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck6.get().value() && !swapDeck.get().similarColorTo(workingDeck6.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck6.get().toString();
                 return "";
             case 10:
@@ -1087,7 +1087,7 @@ public class Gui implements Serializable{
                 else if (workingDeck7.isEmpty())
                     return "";
 
-                if (swapDeck.get().value() + 1 == workingDeck7.get().value())
+                if (swapDeck.get().value() + 1 == workingDeck7.get().value() && !swapDeck.get().similarColorTo(workingDeck7.get()))
                     return swapDeck.get().toString() + " To: " + workingDeck7.get().toString();
                 return "";
         }
