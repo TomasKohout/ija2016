@@ -5,12 +5,22 @@ import ija.ija2016.model.cards.*;
 /**
  * Created by xblaze31 on 24.3.2017.
  */
+
+/**
+ * Class implements methods from abstract class AbstractFactorySolitaire.
+ */
 public class FactoryKlondike extends AbstractFactorySolitaire {
     private CardDeckMethods cd;
 
     public FactoryKlondike(){
     }
 
+    /**
+     * Create card with given value and color type.
+     * @param color Color type
+     * @param value Value of card
+     * @return Object Card.
+     */
     @Override
     public Card createCard(Card.Color color, int value) {
         Card c;
@@ -24,16 +34,29 @@ public class FactoryKlondike extends AbstractFactorySolitaire {
         return c;
     }
 
+    /**
+     * Create card deck with zero card 52 unique cards.
+     * @return Object CardDeck.
+     */
     @Override
     public CardDeck createCardDeck() {
         return cd.createStandardDeck();
     }
 
+    /**
+     * Create target pack with given color type.
+     * @param color Color type
+     * @return Object CardDeck.
+     */
     @Override
     public CardDeck createTargetPack(Card.Color color) {
         return new CardTargetDeck(color,13);
     }
 
+    /**
+     * Create working pack with zero cards in there.
+     * @return Object CardStack.
+     */
     @Override
     public CardStack createWorkingPack() {
         return new CardStackMethods(25);

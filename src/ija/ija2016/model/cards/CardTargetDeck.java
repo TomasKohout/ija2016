@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 /**
- * Class represents Target Deck.
+ * Class represents Target Deck extending class CardDeckMethods.
  */
 public class CardTargetDeck extends CardDeckMethods implements Serializable {
     private Card.Color targetColor;

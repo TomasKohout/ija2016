@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 /**
- * Class represents card stack.
+ * Class represents card stack and implements interface CardStack.
  */
 public class CardStackMethods implements CardStack, Serializable{
     //Atributy

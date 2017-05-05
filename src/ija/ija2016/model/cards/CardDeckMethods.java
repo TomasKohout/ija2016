@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 /**
- * Class represents card deck.
+ * Class represents card deck implements methods from interface CardDeck.
  */
 public class CardDeckMethods implements CardDeck, Serializable{
     //Atributy

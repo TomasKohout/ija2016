@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * Created by xblaze31 on 24.3.2017.
+ * Class represents one card and implements methods from interface Card.
  */
 public class CardMethods implements Card, Serializable{
     //Atributy
