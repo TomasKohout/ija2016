@@ -803,7 +803,7 @@ public class Gui implements Serializable{
                     continue;
 
                 if (card.value() + 1 == getWorkingDeck(k).get().value() && !card.similarColorTo(getWorkingDeck(k).get()) && card.isTurnedFaceUp() && getWorkingDeck(k).get().isTurnedFaceUp()) {
-                    return card.toString() + " To: " + getWorkingDeck(k).get().toString();
+                    return card.getJLabel().getText() + " To: " + getWorkingDeck(k).get().getJLabel().getText();
                 }
 
                 if(getWorkingDeck(k).isEmpty() && card.value() == 13)
