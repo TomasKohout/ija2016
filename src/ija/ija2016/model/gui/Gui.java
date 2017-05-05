@@ -7,7 +7,7 @@
 
 
 package ija.ija2016.model.gui;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import ija.ija2016.model.board.FactoryKlondike;
 import ija.ija2016.model.cards.Card;
 import ija.ija2016.model.cards.CardDeck;
@@ -113,7 +113,7 @@ public class Gui implements Serializable{
 
         factory = new FactoryKlondike();
         font = new Font("Lucida Grande",1,0);
-        whiteBorder = createImageIcon("../../../../images/border.png");
+        whiteBorder = createImageIcon("/images/border.png");
         actionListener = new Configuration();
         workingLabel1 = new JLabel[25];
         workingLabel2 = new JLabel[25];

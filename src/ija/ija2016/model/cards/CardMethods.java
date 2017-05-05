@@ -57,8 +57,8 @@ public class CardMethods implements Card, Serializable{
         label  = new JLabel();
         label.setText(this.toString());
         label.setFont(new Font("Lucida Grande",1,0));
-        iconTurned = createImageIcon("../../../../images/" + this.color.toString() + value + ".png");
-        iconUnturned = createImageIcon("../../../../images/cardback.png");
+        iconTurned = createImageIcon("/images/" + this.color.toString() + value + ".png");
+        iconUnturned = createImageIcon("/images/cardback.png");
     }
 
     /**
