@@ -298,25 +298,25 @@ public class Gui implements Serializable{
         panelOfAll.add(load);
         panelOfAll.add(resetGame);
         panelOfAll.add(hint);
-            paintWorkingDeck(workingLabel1, workingDeck1, 10, 310);
+            paintWorkingDeck(workingLabel1, workingDeck1, 10, 340);
             wd1 = workingDeck1.size();
 
-            paintWorkingDeck(workingLabel2, workingDeck2, 110, 310);
+            paintWorkingDeck(workingLabel2, workingDeck2, 110, 340);
             wd2 = workingDeck2.size();
 
-            paintWorkingDeck(workingLabel3, workingDeck3, 210, 310);
+            paintWorkingDeck(workingLabel3, workingDeck3, 210, 340);
             wd3 = workingDeck3.size();
 
-            paintWorkingDeck(workingLabel4, workingDeck4, 310, 310);
+            paintWorkingDeck(workingLabel4, workingDeck4, 310, 340);
             wd4 = workingDeck4.size();
 
-            paintWorkingDeck(workingLabel5, workingDeck5, 410, 310);
+            paintWorkingDeck(workingLabel5, workingDeck5, 410, 340);
             wd5 = workingDeck5.size();
 
-            paintWorkingDeck(workingLabel6, workingDeck6, 510, 310);
+            paintWorkingDeck(workingLabel6, workingDeck6, 510, 340);
             wd6 = workingDeck6.size();
 
-            paintWorkingDeck(workingLabel7, workingDeck7, 610, 310);
+            paintWorkingDeck(workingLabel7, workingDeck7, 610, 340);
             wd7 = workingDeck7.size();
 
 

@@ -1,5 +1,5 @@
 <project name="ija2016" default="compile" basedir=".">
-    
+
         <target name="clean">
                 <delete dir="build" />
                 <mkdir dir="build" />
