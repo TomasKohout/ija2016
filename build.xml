@@ -9,6 +9,10 @@
         <target name="clean">
                 <delete dir="build" />
                 <mkdir dir="build" />
+                <delete dir="dest-client"/>
+                <mkdir dir="dest-client"/>
+                <delete dir="doc"/>
+                <mkdir dir="doc"/>
         </target>
 
         <target name="compile" depends="clean">
@@ -27,7 +31,8 @@
                         </fileset>
                 </copy>
 
-                <jar destfile="dest-client/ija2016.jar" basedir="build" update="true">
+                <jar destfile="dest-client/ija-client.jar" basedir="build" update="true">
+                        <fileset dir="build/images"/>
                         <manifest>
                                 <attribute name="Main-Class" value="ija.ija2016.model.main.Main"/>
                         </manifest>
@@ -44,11 +49,11 @@
         </target>
 
         <target name="test" depends="compile">
-                <mkdir dir="build/report" />
+                <mkdir dir="doc/report" />
                 <junit printsummary="on" fork="true" haltonfailure="yes">
                         <classpath refid="junit.class.path" />
                         <formatter type="xml" />
-                        <batchtest todir="build/report">
+                        <batchtest todir="doc/report">
                                 <fileset dir="src">
                                         <include name="**/Test*.java" />
                                 </fileset>
