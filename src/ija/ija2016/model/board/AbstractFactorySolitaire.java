@@ -1,12 +1,18 @@
+/**
+ * Abstract class factory functions which need to be implemented in KlondikeFactory.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
+
 package ija.ija2016.model.board;
 
 import ija.ija2016.model.cards.Card;
 import ija.ija2016.model.cards.CardDeck;
 import ija.ija2016.model.cards.CardStack;
 
-/**
- * Created by xblaze31 on 24.3.2017.
- */
+
 
 /**
  * Abstract class factory functions which need to be implemented in KlondikeFactory.

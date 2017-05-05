@@ -1,11 +1,11 @@
 /**
- * TODO
- * @author xblaze31
- * @author xkohou08
+ * Interface describes one card.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
  */
 
 package ija.ija2016.model.cards;
-
 import javax.swing.*;
 
 /**

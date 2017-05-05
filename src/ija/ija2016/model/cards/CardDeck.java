@@ -1,7 +1,11 @@
-package ija.ija2016.model.cards;
 /**
- * Created by xblaze31 on 24.3.2017.
+ * Interface describe basic deck for draw.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
  */
+
+package ija.ija2016.model.cards;
 
 /**
  * Interface describe basic deck for draw.

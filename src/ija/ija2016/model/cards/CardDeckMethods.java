@@ -1,11 +1,14 @@
+/**
+ * Class represents card deck implements methods from interface CardDeck.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.cards;
 import java.io.Serializable;
 import java.util.*;
 
-
-/**
- * Created by xblaze31 on 24.3.2017.
- */
 
 /**
  * Class represents card deck implements methods from interface CardDeck.

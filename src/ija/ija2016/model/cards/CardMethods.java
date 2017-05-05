@@ -1,3 +1,10 @@
+/**
+ * Class represents one card and implements methods from interface Card.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.cards;
 
 import javax.swing.*;
