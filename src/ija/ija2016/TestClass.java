@@ -1,5 +1,8 @@
-/*
+/**
+ * Test class for project Solitaire.
+ * @author koci
  */
+
 package ija.ija2016;
 
 import ija.ija2016.model.board.AbstractFactorySolitaire;
@@ -16,7 +19,6 @@ import org.junit.Test;
 
 /**
  * Test class for project Solitaire.
- * @author koci
  */
 public class TestClass {
     

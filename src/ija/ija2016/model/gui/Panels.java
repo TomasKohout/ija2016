@@ -1,3 +1,11 @@
+/**
+ * Class configuring and processing works with panels of games.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
+
 package ija.ija2016.model.gui;
 
 import javafx.scene.layout.Pane;
@@ -9,9 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 
-/**
- * Created by tom on 3.5.17.
- */
+
 public class Panels {
     private static final int FRAME_WIDTH = 720;
     private static final int FRAME_HEIGH = 500;

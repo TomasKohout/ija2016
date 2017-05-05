@@ -1,9 +1,17 @@
+/**
+ * Class represents Target Deck extending class CardDeckMethods.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
+
 package ija.ija2016.model.cards;
 
 import java.io.Serializable;
 
 /**
- * Created by xblaze31 on 24.3.2017.
+ * Class represents Target Deck extending class CardDeckMethods.
  */
 public class CardTargetDeck extends CardDeckMethods implements Serializable {
     private Card.Color targetColor;

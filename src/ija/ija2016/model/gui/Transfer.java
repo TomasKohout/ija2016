@@ -1,21 +1,36 @@
+/**
+ * Class implementing all moves between all possible Stacks, Decks and Target Deck with theirs undo moves.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.gui;
 
 import ija.ija2016.model.cards.*;
-import javafx.beans.binding.ObjectExpression;
 
 /**
- * Created by Tom on 3.5.2017.
+ * Class implementing all moves between all possible Stacks, Decks and Target Deck with theirs undo moves.
  */
 public class Transfer {
     public String destination; //Name
-    public String source; //Name
+    private String source; //Name
     public Object src; //Deck
-    public Object dst; //Deck
-    public Card sourceCard; //Card
-    public Card destCard; //Card
+    private Object dst; //Deck
+    private Card sourceCard; //Card
+    private Card destCard; //Card
     private boolean turnBackLastCard = false;
 
-
+    /**
+     * Construct move that take source and destination Object, name of source and destination position and last need
+     * is source and destination card.
+     * @param source Name of source position
+     * @param destination Name of destination position
+     * @param src Source Object
+     * @param dst Destination Object
+     * @param sourceCard Source Card
+     * @param destCard Destination Card
+     */
     public Transfer(String source, String destination, Object src, Object dst, Card sourceCard, Card destCard){
         this.source = source;
         this.destination = destination;
@@ -25,6 +40,10 @@ public class Transfer {
         this.destCard = destCard;
     }
 
+    /**
+     * Move from Main deck to Swap Stack operation.
+     * @return True when move have access.
+     */
     public boolean MainToSwap()
     {
         CardDeck source = (CardDeck) this.src;
@@ -46,6 +65,9 @@ public class Transfer {
         return true;
     }
 
+    /**
+     *  Undo move to Main deck to Swap Stack operation.
+     */
     public void UndoMainToSwap() {
         CardStack source = (CardStack) this.dst;
         CardDeck dest = (CardDeck) this.src;
@@ -66,6 +88,10 @@ public class Transfer {
 
     }
 
+    /**
+     * Move from Stack to Stack operation.
+     * @return True when move have access.
+     */
     public boolean StackToStack() {
         CardStack source = (CardStack) this.src;
         CardStack dest = (CardStack) this.dst;
@@ -107,6 +133,9 @@ public class Transfer {
         return true;
     }
 
+    /**
+     *  Undo move to Stack to Stack operation.
+     */
     public void UndoStackToStack() {
         CardStack source = (CardStack) this.dst;
         CardStack dest = (CardStack) this.src;
@@ -127,7 +156,10 @@ public class Transfer {
         }
     }
 
-
+    /**
+     * Move from Stack to Target Deck operation.
+     * @return True when move have access.
+     */
     public boolean StackToTargetDeck()
     {
         CardStack source = (CardStack) this.src;
@@ -165,6 +197,9 @@ public class Transfer {
         return true;
     }
 
+    /**
+     * Undo move to Stack to Target Deck operation.
+     */
     public void UndoStackToTargetDeck(){
         CardTargetDeck source = (CardTargetDeck) this.dst;
         CardStack dest = (CardStack) this.src;
@@ -175,7 +210,10 @@ public class Transfer {
         dest.forcePut(source.pop(),this.source);
     }
 
-
+    /**
+     * Move from Target Deck to Stack operation.
+     * @return True when move have access.
+     */
     public boolean TargetDeckToStack()
     {
         CardTargetDeck source = (CardTargetDeck) this.src;
@@ -200,6 +238,9 @@ public class Transfer {
         return true;
     }
 
+    /**
+     *  Undo move to Target Deck to Stack operation.
+     */
     public void UndoTargetDeckToStack(){
         CardStack source = (CardStack) this.dst;
         CardTargetDeck dest = (CardTargetDeck) this.src;
@@ -207,9 +248,4 @@ public class Transfer {
         dest.forcePut(source.pop(),this.destination);
     }
 
-    public void setString(String source,String destination)
-    {
-        this.destination = destination;
-        this.source = source;
-    }
 }

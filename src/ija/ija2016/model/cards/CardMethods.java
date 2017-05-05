@@ -1,3 +1,10 @@
+/**
+ * Class represents one card and implements methods from interface Card.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.cards;
 
 import javax.swing.*;
@@ -5,7 +12,7 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * Created by xblaze31 on 24.3.2017.
+ * Class represents one card and implements methods from interface Card.
  */
 public class CardMethods implements Card, Serializable{
     //Atributy
@@ -17,6 +24,9 @@ public class CardMethods implements Card, Serializable{
     private ImageIcon iconUnturned;
 
 
+    /**
+     * Enumeration of colors of card.
+     */
     public enum Color{
         CLUBS 		("C"),
         DIAMONDS 	("D"),
@@ -35,6 +45,11 @@ public class CardMethods implements Card, Serializable{
         }
     }
 
+    /**
+     * Create object Card.
+     * @param c Color type
+     * @param value Value of card
+     */
     public CardMethods(Card.Color c, int value){
         this.value = value;
         this.color = c;
@@ -46,14 +61,28 @@ public class CardMethods implements Card, Serializable{
         iconUnturned = createImageIcon("../../../../images/cardback.png");
     }
 
+    /**
+     * Check value of card.
+     * @return Value of card.
+     */
     public int value(){
         return this.value;
     }
 
+    /**
+     * Check that card is faced up.
+     * @return True if card is turned face up, else false.
+     */
     public boolean isTurnedFaceUp(){
         return this.faceUp;
     }
 
+
+    /**
+     * Turn card face up.
+     *
+     * @return False if card is already face up, else true.
+     */
     public boolean turnFaceUp(){
         if(!this.faceUp){
             this.faceUp = true;
@@ -62,19 +91,26 @@ public class CardMethods implements Card, Serializable{
         return false;
     }
 
+    /**
+     * Turn card.
+     * @return Turned card.
+     */
     public Card turn(){
         this.faceUp = !this.faceUp;
         return this;
     }
 
-
-
+    /**
+     * Check color type of card and return color type from enumeration type.
+     * @return Color of card.
+     */
     public Card.Color color(){
         return this.color;
     }
 
     /**
-     * @return False if Red, True if Black
+     * Check color of card.
+     * @return If card is black return true otherwise false.
      */
     public boolean isBlackOrRed(){
         if(this.color == Card.Color.CLUBS || this.color == Card.Color.SPADES) {
@@ -84,6 +120,11 @@ public class CardMethods implements Card, Serializable{
         }
     }
 
+    /**
+     * Compare two cards in color.
+     * @param c  Card
+     * @return True if colors of cards are similar.
+     */
     public  boolean similarColorTo(Card c){
         if(this.isBlackOrRed() == c.isBlackOrRed()){
             return true;
@@ -92,6 +133,12 @@ public class CardMethods implements Card, Serializable{
         }
     }
 
+
+    /**
+     *
+     * @param c Card
+     * @return Function return zero when card values are same.
+     */
     public int compareValue(Card c){
         return this.value - c.value();
     }
@@ -145,6 +192,11 @@ public class CardMethods implements Card, Serializable{
         }
     }
 
+    /**
+     * Create image icon by path.
+     * @param path Path to file
+     * @return Image or null.
+     */
     private ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {

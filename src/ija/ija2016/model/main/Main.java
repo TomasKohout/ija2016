@@ -1,3 +1,11 @@
+/**
+ * Main Class witch creates main window panel, where is everything about game displayed.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
+
 package ija.ija2016.model.main;
 import javax.swing.*;
 

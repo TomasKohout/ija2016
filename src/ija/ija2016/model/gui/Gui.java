@@ -1,3 +1,11 @@
+/**
+ * Class implements graphic units, mouse listeners and call move operations of game.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
+
 package ija.ija2016.model.gui;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ija.ija2016.model.board.FactoryKlondike;

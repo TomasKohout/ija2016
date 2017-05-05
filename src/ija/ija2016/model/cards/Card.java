@@ -1,11 +1,11 @@
 /**
- * TODO
- * @author xblaze31
- * @author xkohou08
+ * Interface describes one card.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
  */
 
 package ija.ija2016.model.cards;
-
 import javax.swing.*;
 
 /**
@@ -47,7 +47,7 @@ public interface Card {
 
     /**
      * Check color of card.
-     * @return If card is black return true.
+     * @return If card is black return true otherwise false.
      */
     boolean isBlackOrRed();
 
@@ -72,7 +72,7 @@ public interface Card {
     JLabel getJLabel();
 
     /**
-     *
+     * Turn card.
      * @return Turned card.
      */
     Card turn();

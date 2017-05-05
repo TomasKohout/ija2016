@@ -1,7 +1,14 @@
+/**
+ * Class which represent move from Target Deck to Stack and Undo.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.gui;
 
 /**
- * Created by tom on 2.5.17.
+ * Class which represent move from Target Deck to Stack and Undo.
  */
 public class TargetDeckToStack implements Command{
     private  Transfer move;

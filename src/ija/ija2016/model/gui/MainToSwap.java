@@ -1,8 +1,15 @@
+/**
+ * Class which represent move from Main deck to Swap Stack and Undo.
+ *
+ * @author Tomáš Blažek (xblaze31)
+ * @author Tomáš Kohout (xkohou08)
+ */
+
 package ija.ija2016.model.gui;
 
 
 /**
- * Created by tom on 2.5.17.
+ * Class which represent move from Main deck to Swap Stack and Undo.
  */
 public class MainToSwap implements Command{
     private  Transfer move;
