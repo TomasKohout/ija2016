@@ -226,13 +226,13 @@ public class Gui implements Serializable{
         workingDeck7.forcePut(workingDeck7.pop().turn(), "w7");
         wd7 = workingDeck7.size() - 1;
 
-        setZeroIndexLabel(workingLabel1, 10, 310, "wb-w1");
-        setZeroIndexLabel(workingLabel2, 110, 310, "wb-w2");
-        setZeroIndexLabel(workingLabel3, 210, 310, "wb-w3");
-        setZeroIndexLabel(workingLabel4, 310, 310, "wb-w4");
-        setZeroIndexLabel(workingLabel5, 410, 310, "wb-w5");
-        setZeroIndexLabel(workingLabel6, 510, 310, "wb-w6");
-        setZeroIndexLabel(workingLabel7, 610, 310, "wb-w7");
+        setZeroIndexLabel(workingLabel1, 10, 340, "wb-w1");
+        setZeroIndexLabel(workingLabel2, 110, 340, "wb-w2");
+        setZeroIndexLabel(workingLabel3, 210, 340, "wb-w3");
+        setZeroIndexLabel(workingLabel4, 310, 340, "wb-w4");
+        setZeroIndexLabel(workingLabel5, 410, 340, "wb-w5");
+        setZeroIndexLabel(workingLabel6, 510, 340, "wb-w6");
+        setZeroIndexLabel(workingLabel7, 610, 340, "wb-w7");
 
         setZeroIndexLabel(targetLabel1, 310, 20, "wb-t1");
         setZeroIndexLabel(targetLabel2, 410, 20, "wb-t2");
