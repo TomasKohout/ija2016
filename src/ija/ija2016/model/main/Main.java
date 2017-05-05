@@ -7,12 +7,14 @@
 
 
 package ija.ija2016.model.main;
-import javax.swing.*;
 
-import ija.ija2016.model.gui.Gui;
 import ija.ija2016.model.gui.Panels;
 
 public class Main {
+    /**
+     * Main method.
+     * @param args arguments
+     */
     public static void main(String[] args) {
         try {
             Panels window = new Panels();

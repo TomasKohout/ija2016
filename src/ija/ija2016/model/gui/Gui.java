@@ -865,6 +865,11 @@ public class Gui implements Serializable{
             JOptionPane.showMessageDialog(panelOfAll, findHint());
         }
 
+        /**
+         * Method for getting workingDeck by int i
+         * @param i number of deck
+         * @return Instance of CardStack or null (never should happend)
+         */
         private CardStack getWorkingDeck(int i)
         {
             i++;
@@ -882,7 +887,12 @@ public class Gui implements Serializable{
             return null;
         }
 
-        private String whatever(int i ,CardStack from)
+        /**
+         * Method for comparing workingDeck with workingDeck
+         * @param from CardStack one of workingDecks
+         * @return String if match has been found, otherwise empty String
+         */
+        private String workWithWorkStack(CardStack from)
         {
             Card card = null;
             for (int g = 0; g < from.size(); g++)
@@ -895,7 +905,7 @@ public class Gui implements Serializable{
             }
             if (card == null)
                 return "";
-            for (int k = 0, l = 0; k < end ; k++, l++) {
+            for (int k = 0; k < end ; k++) {
 
                 if (getWorkingDeck(k).isEmpty())
                     continue;
@@ -911,6 +921,10 @@ public class Gui implements Serializable{
             return "";
         }
 
+        /**
+         * Method for find hint.
+         * @return String with hint or "Hint not found" like.
+         */
         private String findHint()
         {
             if (start == 7)
@@ -930,40 +944,40 @@ public class Gui implements Serializable{
                 switch (start-1)
                 {
                     case 0:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
 
                     case 1:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
 
                     case 2:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
 
                     case 3:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
                     case 4:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
                     case 5:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
                     case 6:
-                        ret = whatever(start,from);
+                        ret = workWithWorkStack(from);
                         if (!ret.isEmpty())
                             return ret;
                         break;
@@ -1038,6 +1052,12 @@ public class Gui implements Serializable{
 
         }
     }
+
+    /**
+     * Compare workingDeck wiht TargetDecks
+     * @param stack wrokingDeck
+     * @return String with hint or empty String
+     */
     private String workWithTarget(CardStack stack)
     {
         if (stack.isEmpty())
@@ -1092,6 +1112,12 @@ public class Gui implements Serializable{
         }
         return "";
     }
+
+    /**
+     * Compare swapDeck with targetDecks and workingDecks
+     * @param i which deck/stack should be compared to swapDeck
+     * @return String with hint or empty String
+     */
     private String mainTarget (int i)
     {
         switch (i)
@@ -1200,12 +1226,21 @@ public class Gui implements Serializable{
 
         return "";
     }
+
+    /**
+     * Add actionListener to Cards in stack.
+     * @param stack CardStack
+     */
     private void addListenerStack(CardStack stack)
     {
         for (int k = 0; k < stack.size(); k++)
             stack.get(k).getJLabel().addMouseListener(actionListener);
     }
 
+    /**
+     * Add actionListener to Cards in deck
+     * @param deck CardDeck
+     */
     private void addListenerDeck(CardDeck deck)
     {
         for (int k = 0; k < deck.size(); k++)
@@ -1213,7 +1248,9 @@ public class Gui implements Serializable{
     }
 
 
-
+    /**
+     * Prepare stacks/decks for new game
+     */
     private void prepareForNewGame()
     {
         targetDeck1 = null;
