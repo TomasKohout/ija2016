@@ -16,7 +16,9 @@ import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 
-
+/**
+ * Class for graphic
+ */
 public class Gui implements Serializable{
 
     private static final int CARD_WIDTH = 80;
@@ -80,6 +82,12 @@ public class Gui implements Serializable{
 
     private transient Invoker invoker;
 
+    /**
+     * Contructor makes a one game graphic user interface and prepare game to start position.
+     *
+     * @param panel Panel where is placed game.
+     * @param exitGame Button to quit game.
+     */
     public Gui(JPanel panel, JButton exitGame)
     {
         invoker = new Invoker();

@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * IJA 2016/2017: Testovaci trida pro ukol c. 2.
+ * Test class for project Solitaire.
  * @author koci
  */
 public class TestClass {
