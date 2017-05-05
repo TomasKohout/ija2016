@@ -24,9 +24,6 @@ import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 
-/**
- * Class for graphic
- */
 public class Gui implements Serializable{
 
     private static final int CARD_WIDTH = 80;
@@ -179,7 +176,9 @@ public class Gui implements Serializable{
         setUp();
     }
 
-
+    /**
+     * Prepare attributes for game.
+     */
     private void setUp()
     {
 
@@ -246,11 +245,23 @@ public class Gui implements Serializable{
 
     }
 
+    /**
+     * Turn Card card up.
+     * @param card Card to be turned.
+     * @return Turned Card
+     */
     private Card turnCardUp (Card card){
         card.turnFaceUp();
         return card;
     }
 
+    /**
+     * Prepare zero index of array of labels
+     * @param labels array to be set
+     * @param x X coords
+     * @param y Y coords
+     * @param label Name and position of label;
+     */
     private void setZeroIndexLabel (JLabel[] labels, int x, int y, String label)
     {
         labels[0] = new JLabel(whiteBorder);
@@ -259,6 +270,12 @@ public class Gui implements Serializable{
         labels[0].setBounds(x, y, CARD_WIDTH+5, CARD_HEIGH);
         labels[0].addMouseListener(actionListener);
     }
+
+    /**
+     * Create image icon.
+     * @param path Path to a image
+     * @return Instance of ImageIcon
+     */
     private ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
@@ -269,6 +286,9 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Repaint JPanel this.panelOfAll
+     */
     protected void repaint()
     {
         panelOfAll.removeAll();
@@ -325,6 +345,13 @@ public class Gui implements Serializable{
         Panels.mainFrame.getContentPane().repaint();
     }
 
+    /**
+     * Add JLbaels from cards in stack to array labels.
+     * @param labels Array of JLabels
+     * @param stack Stack that contains actual JLabels
+     * @param x X coordinates
+     * @param y Y coordinates
+     */
     protected void paintWorkingDeck(JLabel[] labels, CardStack stack, int x, int y)
     {
         if (stack.isEmpty())
@@ -339,6 +366,14 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Add JLabels from cards in deck to array labels.
+     * @param labels array of JLabels
+     * @param deck CardDeck containing actual cards
+     * @param x X Coordinates
+     * @param y Y Coordinates
+     * @param labelName String that identifies cards and their position
+     */
     protected void addDeckToPanel(JLabel[] labels, CardDeck deck, int x, int y, String labelName)
     {
 
@@ -353,6 +388,14 @@ public class Gui implements Serializable{
 
     }
 
+    /**
+     * Add JLabels from cards in stack to array labels;
+     * @param labels array of JLabels
+     * @param stack CardStack containing actual cards
+     * @param x X Coordinates
+     * @param y Y Coordinates
+     * @param labelName String that identifies cards and their position
+     */
     protected void addStackToPanel( JLabel[] labels, CardStack stack, int x, int y, String labelName)
     {
         if (stack.size() != 0)
@@ -368,6 +411,9 @@ public class Gui implements Serializable{
 
     }
 
+    /**
+     * Class that implements movement of cards.
+     */
     protected class Configuration extends MouseAdapter{
         private Object sourceDeck = null;
         private Object destDeck = null;
@@ -384,6 +430,10 @@ public class Gui implements Serializable{
 
         Component lastComponent;
 
+        /**
+         * First click on JLabel
+         * @param e MouseEvent, Component
+         */
         @Override
         public void mousePressed(MouseEvent e){
             Component comp_card = e.getComponent();
@@ -399,6 +449,10 @@ public class Gui implements Serializable{
                 clearMove();
         }
 
+        /**
+         * Release of mouse.
+         * @param e event, Component
+         */
         @Override
         public void mouseReleased(MouseEvent e)
         {
@@ -441,6 +495,10 @@ public class Gui implements Serializable{
             }
         }
 
+        /**
+         * Method that get the last Component before release.
+         * @param e event
+         */
         @Override
         public void mouseEntered(MouseEvent e)
         {
@@ -448,6 +506,12 @@ public class Gui implements Serializable{
             return;
         }
 
+        /**
+         * Method for moving cards
+         * @param source Source Card
+         * @param dest Destination Card
+         * @return true/false
+         */
         protected boolean moveCards(Card source, Card dest ) {
             if (source == null)
                 return false;
@@ -495,7 +559,12 @@ public class Gui implements Serializable{
             return false;
         }
 
-
+        /**
+         * Returns Card on CardStack/CardDeck
+         * @param str Name of Card
+         * @param switchString Name of CardStack/CardDeck
+         * @return Instance of Card of null (null is never reacher)
+         */
         protected Card getFromCardDeck(String str, String switchString)
         {
             switch (switchString)
@@ -530,6 +599,13 @@ public class Gui implements Serializable{
             return null;
         }
 
+        /**
+         * This method go through specific stack/deck and return Card.
+         * @param deck CardDeck
+         * @param stack CardStack
+         * @param str Name of card
+         * @return Instance of Card
+         */
         protected Card getCard(CardDeck deck, CardStack stack, String str)
         {
             if (deck != null) {
@@ -564,6 +640,9 @@ public class Gui implements Serializable{
             return null;
         }
 
+        /**
+         * Wipe attributes necessary for movement.
+         */
         protected void clearMove()
         {
             this.source = "";
@@ -576,6 +655,10 @@ public class Gui implements Serializable{
             this.secDeck = 1;
         }
 
+        /**
+         * This method sets attribute destination, source, cardNameSource and cardNameDest.
+         * @param labelText text from cards JLabel
+         */
         protected void parse(String labelText)
         {
             boolean flag = true;
@@ -606,6 +689,9 @@ public class Gui implements Serializable{
 
     }
 
+    /**
+     * Class for handling event applied to undo button.
+     */
     protected class UndoGame implements ActionListener{
 
         @Override
@@ -616,6 +702,9 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Class for handling event applied to save button.
+     */
     protected class SaveGame implements ActionListener{
 
         @Override
@@ -664,6 +753,9 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Class that handle event applied to load button.
+     */
     protected class LoadGame implements ActionListener {
 
         @Override
@@ -745,6 +837,9 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Class that handle event applied to reset button.
+     */
     protected class ResetGame implements ActionListener {
 
         @Override
@@ -755,6 +850,9 @@ public class Gui implements Serializable{
         }
     }
 
+    /**
+     * Class that handle event applied to hint button.
+     */
     protected class Hint implements ActionListener{
 
         private int start = 0;

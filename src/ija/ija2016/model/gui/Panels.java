@@ -8,15 +8,10 @@
 
 package ija.ija2016.model.gui;
 
-import javafx.scene.layout.Pane;
-
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-
 
 public class Panels {
     private static final int FRAME_WIDTH = 720;
@@ -41,6 +36,9 @@ public class Panels {
     private Gui gameLogic3;
     private Gui gameLogic4;
 
+    /**
+     * Constructor
+     */
     public Panels()
     {
         mainFrame = new JFrame("Rébus Solitaire");
@@ -73,6 +71,9 @@ public class Panels {
 
     }
 
+    /**
+     * Repaint whole frame.
+     */
     public static void repaint()
     {
         Panels.mainFrame.add(Panels.panelOfAll);
@@ -80,8 +81,16 @@ public class Panels {
         Panels.mainFrame.getContentPane().repaint();
 
     }
+
+    /**
+     * Class that implements ActionListener interface for button newGame
+     */
     protected class NewGameButton implements ActionListener {
 
+        /**
+         * Action handler
+         * @param e event
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if (game1 == null)
@@ -122,6 +131,10 @@ public class Panels {
             repaint();
         }
     }
+
+    /**
+     * Makes frame doublesized
+     */
     private void setDoubleSize()
     {
         panelOfAll.setSize(FRAME_WIDTH * 2, FRAME_HEIGH * 2);
@@ -129,6 +142,9 @@ public class Panels {
         repaint();
     }
 
+    /**
+     * Makes frame single sized (720x500)
+     */
     private void setSingleSize()
     {
         panelOfAll.setSize(FRAME_WIDTH, FRAME_HEIGH);
@@ -170,6 +186,11 @@ public class Panels {
             setDoubleSize();
 
     }
+
+    /**
+     * Creates new JButtno
+     * @return JButton instance
+     */
     private JButton createButton()
     {
         JButton button;
@@ -181,6 +202,10 @@ public class Panels {
         return button;
     }
 
+    /**
+     * Create new JPanel instance
+     * @return JPanel Instance
+     */
     private JPanel createPanel()
     {
         JPanel panel;
@@ -189,8 +214,15 @@ public class Panels {
         panel.setBackground(new Color(12,121,5));
         return panel;
     }
-    protected class ExitGame implements ActionListener {
 
+    /**
+     * Class for handling action performed on exitGame button.
+     */
+    protected class ExitGame implements ActionListener {
+        /**
+         * Action handler
+         * @param e event
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Object tmp = e.getSource();
